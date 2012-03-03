@@ -1,0 +1,131 @@
+pre {
+  code {
+    display: block; padding: 0.5em;
+    color: #000;
+    border: 2px solid #777;
+    background-color: #FFF;
+  }
+}
+$green:  #709E00;
+$purple: #9A70E1;
+$pink:   #F12772;
+$blue:   #5ED9EF;
+$black:  #000;
+$dark:   #111;
+$light:  #555;
+$white:  #FFF;
+/*
+
+Intellij Idea-like styling (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+pre code {
+  background: #fff;
+}
+
+pre .subst,
+pre .title {
+  font-weight: normal;
+  color: $black;
+}
+
+pre .comment,
+pre .template_comment,
+pre .javadoc,
+pre .diff .header {
+  color: $light;
+  font-style: italic;
+}
+
+pre .tag,
+pre .pi {
+  background: #efefef;
+}
+
+pre .tag .title,
+pre .id,
+pre .attr_selector,
+pre .pseudo,
+pre .literal,
+pre .keyword,
+pre .hexcolor,
+pre .css .function,
+pre .ini .title,
+pre .css .class,
+pre .list .title,
+pre .tex .command {
+  font-weight: bold;
+  color: $pink;
+}
+
+pre .attribute,
+pre .rules .keyword,
+pre .number,
+pre .date,
+pre .regexp,
+pre .tex .special {
+  font-weight: bold;
+  color: $green;
+}
+
+pre .number,
+pre .regexp {
+  font-weight: normal;
+}
+
+pre .string,
+pre .value,
+pre .filter .argument,
+pre .css .function .params,
+pre .apache .tag {
+  color: $green;
+  font-weight: bold;
+}
+
+pre .symbol,
+pre .ruby .symbol .string,
+pre .ruby .symbol .keyword,
+pre .ruby .symbol .keymethods,
+pre .char,
+pre .tex .formula {
+  color: $dark;
+  background: $pink;
+  font-style: italic;
+}
+
+pre .phpdoc,
+pre .yardoctag,
+pre .javadoctag {
+  text-decoration: underline;
+}
+
+pre .variable,
+pre .envvar,
+pre .apache .sqbracket,
+pre .nginx .built_in {
+  color: $blue;
+}
+
+#js-mess {
+  pre {
+    code {
+      border: none;
+    }
+  }
+  .mess_1 {
+    top: -200px;
+    left: -250px;
+  }
+
+  .mess_2 {
+    top: -300px;
+    left: 120px;
+  }
+
+  .mess_3 {
+    top: -350px;
+    left: 520px;
+  }
+
+}

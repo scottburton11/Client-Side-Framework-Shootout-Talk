@@ -20,44 +20,60 @@ time, mark, audio, video {
 
 @font-face {
   font-family: Delicious;
-  src: url("fonts/Delicious-Roman.otf"); }
+  src: url("../fonts/Delicious-Roman.otf"); }
 
 @font-face {
   font-family: Delicious;
   font-style: italic;
-  src: url("fonts/Delicious-BoldItalic.otf"); }
+  src: url("../fonts/Delicious-BoldItalic.otf"); }
 
 @font-face {
   font-family: Delicious;
   font-weight: bold;
-  src: url("fonts/Delicious-Bold.otf"); }
+  src: url("../fonts/Delicious-Bold.otf"); }
 
 @font-face {
   font-family: Delicious;
   font-weight: heavy;
-  src: url("fonts/Delicious-Heavy.otf"); }
+  src: url("../fonts/Delicious-Heavy.otf"); }
+
+@font-face {
+  font-family: DejaVu;
+  src: url("../fonts/DejaVuSansMono.ttf"); }
 
 @font-face {
   font-family: Fontin;
-  src: url("fonts/Fontin-Regular.otf"); }
+  src: url("../fonts/Fontin-Regular.otf"); }
 
 @font-face {
   font-family: Fontin;
   font-style: italic;
-  src: url("fonts/Fontin-Italic.otf"); }
+  src: url("../fonts/Fontin-Italic.otf"); }
 
 @font-face {
   font-family: Fontin;
   font-weight: bold;
-  src: url("fonts/Fontin-Bold.otf"); }
+  src: url("../fonts/Fontin-Bold.otf"); }
+
+@font-face {
+  font-family: NewsCycle;
+  font-weight: regular;
+  src: url("../fonts/NewsCycle-Regular.otf"); }
 
 * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
+ul {
+  margin: 36px 0px; }
+  ul li {
+    list-style: none;
+    font-size: 38px;
+    margin: 24px 0px; }
+
 .step {
-  font-family: Fontin;
+  font-family: Delicious;
   width: 1000px;
   text-align: center;
   -webkit-box-sizing: border-box;
@@ -71,12 +87,67 @@ time, mark, audio, video {
   -o-transition: opacity 1s;
   transition: opacity 1s; }
   .step h1 {
-    font-size: 64px;
+    font-size: 72px;
     font-style: bold; }
   .step h2 {
-    font-size: 48px; }
+    font-size: 60px; }
   .step h3 {
-    font-size: 36px; }
+    font-size: 48px; }
 
 .step:not(.active) {
   opacity: 0.3; }
+
+code {
+  font-family: DejaVuSansMono;
+  text-align: left; }
+
+pre code.small {
+  font-size: 7px; }
+pre code.medium {
+  font-size: 12px; }
+
+.mono {
+  font-family: DejaVuSansMono; }
+
+.api-doc {
+  text-align: left;
+  font-family: DejaVuSansMono;
+  width: 50%;
+  margin: 0px auto; }
+  .api-doc dt {
+    color: #555; }
+
+.background {
+  z-index: -999;
+  position: absolute; }
+  .background code {
+    background: none !important; }
+
+#the-web-is-dead img {
+  height: 720px; }
+
+#title-card article.by {
+  color: #222; }
+  #title-card article.by h2 {
+    font-size: 48px; }
+  #title-card article.by h3 {
+    font-size: 40px; }
+#title-card footer {
+  font-size: 36px;
+  color: #333; }
+
+.grey {
+  background-color: #ffffff;
+  background-image: -moz-radial-gradient(50% 0%, circle farthest-side, white, #a1a1a1 100%);
+  background-image: -webkit-radial-gradient(50% 0%, circle farthest-side, white, #a1a1a1 100%);
+  background-image: -o-radial-gradient(50% 0%, circle farthest-side, white, #a1a1a1 100%);
+  background-image: -ms-radial-gradient(50% 0%, circle farthest-side, white, #a1a1a1 100%);
+  background-image: radial-gradient(50% 0%, circle farthest-side, white, #a1a1a1 100%); }
+
+.orange {
+  background-color: #ffc60a;
+  background-image: -moz-radial-gradient(50% 0%, circle farthest-side, #ffc60a, #ff8330 100%);
+  background-image: -webkit-radial-gradient(50% 0%, circle farthest-side, #ffc60a, #ff8330 100%);
+  background-image: -o-radial-gradient(50% 0%, circle farthest-side, #ffc60a, #ff8330 100%);
+  background-image: -ms-radial-gradient(50% 0%, circle farthest-side, #ffc60a, #ff8330 100%);
+  background-image: radial-gradient(50% 0%, circle farthest-side, #ffc60a, #ff8330 100%); }

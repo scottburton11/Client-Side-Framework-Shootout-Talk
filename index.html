@@ -2,23 +2,34 @@
 <html>
   <head>
     <title>Client-Side MVC Shootout</title>
-    <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight-custom.css">
+
+    <script src="javascripts/highlight.js" type="text/javascript"></script>
+    <script src="javascripts/highlight-coffee.js" type="text/javascript"></script>
+
+    <script src="javascripts/jquery.min.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">    
+    <script src="javascripts/app.js" type="text/javascript"></script>
   </head>
-  <body>
+  <body class='grey'>
     <div id='impress' class='impress-not-supported'>
   
+      <section id="intro">
+        <div id="intro-blank" class="step" data-x="-4000" data-y="-4000" data-z="5000" data-rotate-x="-90" data-rotate-y="0" data-rotate-z="0" data-scale="1"></div>
+      </section>
+
       <section id="we-have-a-problem">
 
-        <div id="problem" class="step" data-x="0" data-y="0" data-z="0" data-rotate="0" data-scale="1">
+        <div id="problem" class="step" data-x="0" data-y="0" data-z="0" data-rotate="0" data-scale="3">
           <h1>We have a problem</h1>
         </div>
 
-        <div id="native" class="step" data-x="1000" data-y="1000" data-z="0" data-rotate="0" data-scale="2"><h1>Native apps are eating our lunch</h1></div>
+        <div id="the-web-is-dead" class="step" data-x="1000" data-y="4000" data-z="500" data-rotate="0" data-scale="1"><img src="images/wired-web-is-dead.jpg"></div>
 
-        <div id="the-web-is-dead" class="step" data-x="2000" data-y="2000" data-z="500" data-rotate="0" data-scale="1">WIRED COVER - THE WEB IS DEAD</div>
+        <div id="native" class="step" data-x="1000" data-y="2000" data-z="0" data-rotate="0" data-scale="2"><h1>Native apps are eating our lunch</h1></div>
 
-        <div id="not-all-bad" class="step" data-x="2000" data-y="3000" data-z="800" data-rotate="0" data-scale="3"><h1>The truth is</h1></div>
-        <div id="http-apis" class="step" data-x="2000" data-y="4000" data-z="800" data-rotate="0" data-scale="2">
+        <div id="http-apis" class="step" data-x="1000" data-y="8000" data-z="300" data-rotate="15" data-scale="2">
           <h2>Native apps</h2>
           <ul>
             <li>still use HTTP APIs</li>
@@ -27,22 +38,167 @@
           </ul>
         </div>
 
-        <div id="traditional-apps" class="step" data-x="3000" data-y="6000" data-z="0" data-rotate="0" data-scale="3">
+        <div id="traditional-apps" class="step" data-x="1000" data-y="10000" data-z="700" data-rotate="0" data-scale="3">
           <h1>Traditional web apps aren't cutting it</h1>
         </div>
 
-        <div id="js-mess" class="step" data-x="3000" data-y="8000" data-z="0" data-rotate="0" data-scale="3">
+        <div id="js-mess" class="step" data-x="1000" data-y="12000" data-z="400" data-rotate="0" data-scale="3">
           <h1>JS mess</h1>
-          <div class='background'>js mess here</div>          
+          <div class='background mess_1'>
+            <pre><code class="javascript">
+                updateChart: function(chart){
+                  var historicalSeries = chart.series.select(function(series) {return !series.options.forecast});
+                  var forecastSeries   = chart.series.select(function(series) {return series.options.forecast});
+
+                  for (var i = historicalSeries.length - 1; i >= 0; i--){
+                    var thisSeries = historicalSeries[i];
+                    this.updatePoints(thisSeries);
+                  };
+                  
+                  for (var i = forecastSeries.length - 1; i >= 0; i--){
+                    var thisSeries = forecastSeries[i];
+                    var matchingHistoricalSeries = historicalSeries.select(function(series){ return series.options.resource == thisSeries.options.resource});
+                    var initial_point = null;
+                    if (matchingHistoricalSeries[0].data) {
+                      var data = matchingHistoricalSeries[0].data
+                      initial_point = data[data.length - 1]
+                    };
+                    this.updatePoints(thisSeries, initial_point);
+                  };
+                  
+                  if (wellChart.options.logarithmic) {
+                    
+                  } else {
+                    this.removeLogMinorPlotlines(chart);
+                  };
+                  
+                  this.redraw(chart);
+                },
+
+            </code></pre>
+          </div>          
+          <div class='background mess_2'>
+            <pre><code class="js">
+                updatePoints: function(series, initial_point) {
+                  var thisSeries = series;
+
+                  for (var p=0; p < thisSeries.data.length; p++) {
+                    var thisPoint = thisSeries.data[p];  
+                    var thisValue;
+                    
+                    if (wellChart.options.cumulative) {
+
+                      if (initial_point) {
+                        if (p == 0) {
+                          var cumulativeSum = initial_point.cumulative_value;
+                        } else {
+                          var cumulativeSum = thisPoint.cumulative_value + initial_point.cumulative_value;
+                        };
+                        if (wellChart.options.logarithmic) {
+                          thisValue = log10(cumulativeSum);
+                        } else {
+                          thisValue = cumulativeSum;
+                        };
+                      } else {
+                        if (wellChart.options.logarithmic) {
+                          thisValue = thisPoint.cumulative_log10_value;
+                        } else {
+                          thisValue = thisPoint.cumulative_value;
+                        };
+                      };
+                    } else {
+                      if (wellChart.options.logarithmic) {
+                        thisValue = thisPoint.log10_value;
+                      } else {
+                        thisValue = thisPoint.actual_value;
+                      };
+                    };
+
+                    if (!(thisValue == null)) {
+                      thisPoint.update(thisValue, false);
+                    };
+                  };
+
+                },
+            </code></pre>
+          </div>
+          <div class='background mess_3'>
+            <pre><code class="js">
+                setLogMinorPlotlines: function(chart){
+                  var log_powers = range(0,7);
+                  var log_steps = range(2,9).map(function(n){return log10(n)});
+                  for (var a=0; a < chart.yAxis.length; a++) {
+                    var thisAxis = chart.yAxis[a];
+                    for (var p=0; p < log_powers.length; p++) {
+                      var power = log_powers[p];
+                      for (var s=0; s < log_steps.length; s++) {
+                        var step = log_steps[s];
+                        thisAxis.addPlotLine({value: power + step, color: "#ddd", width: 1, id: "yaxis-"+a+"-line-" + (power+step).toFixed(4)});
+                      };
+                    };
+                  };
+                },
+                
+                
+                equalizeExtremes: function(chart){
+                  var maxValue = Array.max(chart.series.map(function(series){ return series.data }).reduce(function(a,b) {return a.concat(b)} ).map(function(point){ return point.y }))
+                  chart.yAxis.forEach(function(axis){
+                    axis.setExtremes(0, Math.ceil(maxValue), false);
+                  });
+                },
+
+                labelFormatter: function() {
+                  var value;
+                  if (wellChart.options.logarithmic) {
+                    value = Math.round(Math.pow(10, this.value), 0);
+                  } else {
+                    value = this.value
+                  };
+                  
+                  if (value >= Math.pow(10, 9)) {
+                    value = value.toString().replace(/0{9}$/, "B");
+                  } else
+                  if (value >= Math.pow(10, 6)) {
+                    value = value.toString().replace(/0{6}$/, "MM");
+                  } else 
+                  if (value >= Math.pow(10, 3)) {
+                    value = value.toString().replace(/0{3}$/, "M");
+                  };
+                  return value;
+                }
+              };
+            </code></pre>
+          </div>
+        </div>
+        
+        <div id="long-live-the-web" class="step" data-x="1000" data-y="15000" data-z="1000" data-rotate="0" data-scale="4"><h1>Long Live The Web?</h1></div>
+
+      </section>
+
+      <section id='title-card'>
+
+        <div id="client-side-mvc-shootout" class="step" data-x="-1000" data-y="-1000" data-z="100" data-rotate-x="90" data-rotate-y="45" data-rotate-z="35" data-scale="3">
+          <header>
+            <h1>Client-Side Framework Shootout</h1>
+          </header>
+          <article class='by'>
+            <h2>Scott Burton</h2>
+            <h3>@scottburton</h3>
+          </article>
+          <footer>
+            <p>ChaiOne chaione.com</p>
+          </footer>
         </div>
 
-      </section>    
+      </section>
 
-      <section id='a-new-hope'>
-        
-        <div id="new-hope" class="step" data-x="4000" data-y="1000" data-z="0" data-rotate="0" data-scale="3"><h1>A New Hope?</h1></div>
+      <section id="client-side-mvc">
 
-        <div id="mvc" class="step" data-x="4000" data-y="3000" data-z="0" data-rotate="0" data-scale="3">
+        <div id="client-side-purpose" class="step" data-x="3000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Structure</h1>
+        </div>
+
+        <div id="mvc" class="step" data-x="3000" data-y="3000" data-z="0" data-rotate="0" data-scale="3">
           <h1>MVC</h1>
           <ul>
             <li>Familiar</li>
@@ -51,24 +207,23 @@
           </ul>
         </div>
 
-        <div id="delegate" class="step" data-x="4000" data-y="5000" data-z="0" data-rotate="0" data-scale="3">
+        <div id="delegate" class="step" data-x="3500" data-y="5000" data-z="0" data-rotate="0" data-scale="3">
           <h1>Delegate teh V</h1>
         </div>
 
-        <div id="delegate-bullets" class="step" data-x="4000" data-y="5500" data-z="2000" data-rotate-x="180" data-scale="2">
+        <div id="delegate-bullets" class="step" data-x="3500" data-y="7000" data-z="2000" data-rotate-x="0" data-scale="2">
           <h2>server-side views</h2>
           <ul>
             <li>are expensive</li>
-            <li>need caching</li>
             <li>sort of crazy</li>
           </ul>
         </div>
 
-        <div id="theres-a-catch" class="step" data-x="4000" data-y="7000" data-z="0" data-rotate-x="0" data-scale="3">
+        <div id="theres-a-catch" class="step" data-x="3500" data-y="9000" data-z="0" data-rotate-x="0" data-scale="3">
           <h1>There's a catch</h1>
         </div>
 
-        <div id="theres-a-catch-bullets" class="step" data-x="4000" data-y="9500" data-z="2000" data-rotate-x="180" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+        <div id="theres-a-catch-bullets" class="step" data-x="3500" data-y="11000" data-z="6000" data-rotate-x="180" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <ul>
             <li>Opinionated</li>
             <li>Testing is hard</li>
@@ -78,34 +233,1634 @@
           </ul>
         </div>
 
-        <div id="unexpected-upsides" class="step" data-x="4000" data-y="11000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+        <div id="unexpected-upsides" class="step" data-x="3500" data-y="11000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <h1>Unexpected upsides</h1>
         </div>
 
-        <div id="unexpected-upsides-api" class="step" data-x="4000" data-y="11000" data-z="100" data-rotate-x="70" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+        <div id="unexpected-upsides-api" class="step" data-x="3500" data-y="11000" data-z="1000" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <h1>You need an API anyway</h1>
-          <h2>Build it now</h2>
+          <h2>Just build it now</h2>
+          <ul>
+            <li>Don't listen to your first customer (you)</li>
+          </ul>
         </div>
 
-        <div id="unexpected-upsides-monolithic" class="step" data-x="4000" data-y="11000" data-z="200" data-rotate-x="140" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-          <h1>Ween yourself of the monolith</h1>
-          <h2>Our frameworks do too much</h2>
+        <div id="unexpected-upsides-monolithic" class="step" data-x="3500" data-y="13000" data-z="2000" data-rotate-x="180" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Ween yourself off the monolith</h1>
         </div>
 
-        <div id="unexpected-upslides-monolithic" class="step" data-x="4000" data-y="11000" data-z="300" data-rotate-x="210" data-rotate-y="0" data-rotate-z="0" data-scale="3"><h1>Better subjectives</h1>
+        <div id="unexpected-upslides-monolithic" class="step" data-x="3500" data-y="15000" data-z="3000" data-rotate-x="270" data-rotate-y="0" data-rotate-z="0" data-scale="3"><h1>Better subjectives</h1>
           <ul>
             <li>Faster apparent loading</li>
             <li>Browser is native-ish</li>
-            <li>No need to cache views</li>
           </ul>
         </div>
       </section>
+
+      <section id="tips">
+        <div id="denormalize" class="step" data-x="6000" data-y="-1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Denormalize</h1>
+        </div>
+
+        <div id="denormalize-one-tweet" class="step" data-x="-6000" data-y="-9000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <pre>
+            <code class='javascript small'>
+
+                            {
+                                "place":
+                                {
+                                    "bounding_box":
+                                    {
+                                        "type":"Polygon",
+                                        "coordinates":
+                                        [ [ [ -118.4038571, 14.5319181 ], [  -86.7122178, 14.5319181 ], [  -86.7122178, 32.718919 ], [ -118.4038571, 32.718919 ] ] ]
+                                    },
+                                    "place_type":"country",
+                                    "url":"http:\/\/api.twitter.com\/1\/geo\/id\/25530ba03b7d90c6.json",
+                                    "country":"Mexico",
+                                    "attributes":
+                                    {
+                                    },
+                                    "full_name":"Mexico",
+                                    "country_code":"MX",
+                                    "name":"Mexico",
+                                    "id":"25530ba03b7d90c6"
+                                },
+                                "retweet_count":0,
+                                "in_reply_to_status_id":null,
+                                "text":"Enchiladas pa' @MeryAldecoaFN #fb http:\/\/t.co\/pwTuyxM",
+                                "created_at":"Sat Aug 13 21:40:34 +0000 2011",
+                                "possibly_sensitive":false,
+                                "geo":null,
+                                "in_reply_to_user_id":null,
+                                "coordinates":null,
+                                "source":"web",
+                                "favorited":false,
+                                "in_reply_to_status_id_str":null,
+                                "id_str":"102494776812765184",
+                                "in_reply_to_screen_name":null,
+                                "truncated":false,
+                                "in_reply_to_user_id_str":null,
+                                "user":
+                                {
+                                    "default_profile":false,
+                                    "created_at":"Sun Feb 21 23:02:04 +0000 2010",
+                                    "friends_count":729,
+                                    "profile_sidebar_border_color":"eeeeee",
+                                    "is_translator":false,
+                                    "time_zone":"Mountain Time (US & Canada)",
+                                    "listed_count":3,
+                                    "statuses_count":6263,
+                                    "following":null,
+                                    "profile_use_background_image":true,
+                                    "favourites_count":85,
+                                    "profile_background_image_url_https":"https:\/\/si0.twimg.com\/profile_background_images\/274430286\
+                                                                                /208294_121405394600266_100001924179739_158818_1093320_n.jpg",
+                                    "profile_background_color":"131516",
+                                    "description":"Amo a @Tbambino...!! Lo Amooo de Amar \u27b3 \u2665 \/\/
+                                                                         Cumplo el 5 de Julio...! & ya ! xD Dlb",
+                                    "profile_background_image_url":"http:\/\/a0.twimg.com\/profile_background_images\
+                                                                          /274430286\/208294_121405394600266_100001924179739_158818_1093320_n.jpg",
+                                    "url":null,
+                                    "profile_image_url":"http:\/\/a1.twimg.com\/profile_images\/1486582056\/Corn_Flakes_WTF_3.3_____normal.jpg",
+                                    "default_profile_image":false,
+                                    "notifications":null,
+                                    "profile_text_color":"333333",
+                                    "profile_image_url_https":"https:\/\/si0.twimg.com\/profile_images\/1486582056\/Corn_Flakes_WTF_3.3_____normal.jpg",
+                                    "profile_sidebar_fill_color":"efefef",
+                                    "followers_count":258,
+                                    "protected":false,
+                                    "screen_name":"jenibambina",
+                                    "id_str":"116293802",
+                                    "profile_background_tile":true,
+                                    "location":"Honduras",
+                                    "name":"Jeniffer Escalante",
+                                    "follow_request_sent":null,
+                                    "contributors_enabled":false,
+                                    "verified":false,
+                                    "id":116293802,
+                                    "show_all_inline_media":true,
+                                    "lang":"es",
+                                    "geo_enabled":true,
+                                    "utc_offset":-25200,
+                                    "profile_link_color":"009999"
+                                },
+                                "id":102494776812765184,
+                                "entities":
+                                {
+
+                                    "hashtags":
+                                    [ {  "text":"fb", "indices": [  30, 33 ] } ],
+                                    "media":
+                                    [ { "type":"photo", "indices": [ 34, 53 ],
+                                            "media_url":"http:\/\/p.twimg.com\/AWwidNuCAAIX91v.jpg",
+                                            "url":"http:\/\/t.co\/pwTuyxM",
+                                            "expanded_url":"http:\/\/twitter.com\/jenibambina\/status\/102494776812765184\/photo\/1",
+                                            "display_url":"pic.twitter.com\/pwTuyxM",
+                                            "id_str":"102494776816959490",
+                                            "media_url_https":"https:\/\/p.twimg.com\/AWwidNuCAAIX91v.jpg",
+                                            "id":102494776816959490,
+                                            "sizes":
+                                            { "large": { "resize":"fit", "h":480, "w":640 },
+                                              "thumb": { "resize":"crop", "h":150, "w":150 },
+                                              "medium": { "resize":"fit", "h":480, "w":640 },
+                                              "small": { "resize":"fit", "h":480, "w":640 }
+                                            }
+                                        }
+                                    ],
+                                },
+                            }
+            </code>
+          </pre>
+        </div>
+
+        <div id="denormalize-has-many" class="step" data-x="6000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <ul class='mono'>
+            <li>has_many</li>
+            <li>has_one</li>
+            <li>belongs_to</li>
+            <li>Virtual attributes</li>
+            <li>Delegated attributes</li>
+          </ul>
+          <pre>
+            <code>
+      collection @products
+        attributes :id, :name, :description, :sku, :category
+
+      node :image_url do |p|
+        p.image_file_path
+      end
+
+      node :price do |p|
+        p.formatted_price
+      end
+
+      node :designer_name do |p|
+        p.designer.name
+      end
+            </code>
+          </pre>
+        </div>
+
+<!--         <div id="denormalize-careful-with-through" class="step" data-x="6000" data-y="3000" data-z="4000" data-rotate-x="-90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h2>careful with <span class='mono'>:through =></span></h2>
+          <ul>
+            <li>respect other owners</li>
+            <li></li>
+          </ul>
+        </div> -->
+
+        <div id="bootstrap" class="step" data-x="6000" data-y="5000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Bootstrap common assets</h1>
+        </div>
+
+        <div id="bootstrap-layout" class="step" data-x="6000" data-y="7000" data-z="500" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h2>Cacheable layout</h2>
+          <ul>
+            <li>Depersonalize</li>
+            <li>Asset package</li>
+            <li>App shell</li>
+          </ul>
+        </div>
+
+        <div id="bootstrap-common" class="step" data-x="6000" data-y="9000" data-z="700" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h2>Common domain objects</h2>
+          <ul>
+            <li>US States</li>
+            <li>Categories</li>
+          </ul>
+        </div>
+
+        <div id="bootstrap-data" class="step" data-x="6000" data-y="11000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Bootstrap data?</h1>
+        </div>
+
+        <div id="bootstrap-data-depends" class="step" data-x="6000" data-y="11000" data-z="-1000" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h2>it depends</h2>
+          <ul>
+            <li>Is it public?</li>
+            <li>Can you easily cache the response?</li>
+          </ul>
+        </div>
       
-      <section id="framework-philosophies">
+        <div id="empty-templates" class="step" data-x="6000" data-y="14000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Empty templates</h1>
+          <pre><code class='ruby'>
+            # app/views/products/show.html.haml
+
+
+
+
+
+
+
+
+          </code></pre>
+        </div>
+
+        <div id="respond-to-every-route" class="step" data-x="6000" data-y="15500" data-z="3000" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Respond to every route with HTML</h1>
+          <pre>
+            <code class='medium'>
+BumHed::Application.routes.draw do    
+  resource :profile, :only => [:show, :edit, :update], :controller => :profile do
+    match "/portrait/edit", :to => "profile#edit"
+  end
+
+  resources :engagements, :except => [:destroy] do
+    collection do
+      post "search"
+    end
+    resources :memberships, :only => [:create, :index]
+    resources :patient_files, :only => [:new, :create] do
+      collection do
+        post "multiple", :to => "patient_files#create_multiple"
+      end
+      member do
+        get "download", :to => "patient_files/downloads#show"
+      end
+    end
+    member do
+      post "attachments", :to => "patient_files/attachments#create", :as => :associate_engagement_patient_files
+    end
+  end
+
+  resources :transfers, :only => [:index, :show, :create]
+  put "transfers/:id/accept", :to => "transfers#update"
+
+  get "patients", :to => "engagements#index"
+  get "patients/new", :to => "engagements#new"
+  get "patients/:id/edit", :to => "engagements#edit"
+  get "patients/:id", :to => "engagements#show"
+  get "messages", :to => "message_receipts#index"
+  get "inbox", :to => "message_receipts#index", :as => :inbox
+
+            </code>
+          </pre>
+        </div>
 
       </section>
+
+      <section id="framework-philosophies">
+
+        <section id="backbone">
+          <div id="backbone-title" class="step" data-x="8500" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Backbone.js</h1>
+          </div>
+
+          <div id="backbone-facts" class="step" data-x="8500" data-y="3000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Backbone.js</h1>
+            <ul>
+              <li>Jeremy Ashkenas - DocumentCloud</li>
+              <li>Widely used</li>
+            </ul>
+          </div>
+
+          <div id="backbone-points" class="step" data-x="8500" data-y="6000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Backbone.js</h1>
+            <ul>
+              <li>Flexible</li>
+              <li>Lightweight</li>
+              <li>Few dependencies</li>
+              <li>Arbitrary collections</li>
+              <li>Rendering is up to you</li>
+            </ul>
+          </div>
+
+          <div id="backbone-components-views" class="step" data-x="8500" data-y="8000" data-z="5000" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Backbone.js</h1>
+            <h2>Views</h2>
+            <ul>
+              <li>Rendering</li>
+              <li>Event handling</li>
+            </ul>
+          </div>
+
+          <div id="backbone-components-model" class="step" data-x="8500" data-y="10000" data-z="6000" data-rotate-x="180" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Backbone.js</h1>
+            <h2>Models</h2>
+            <ul>
+              <li>Key-value storage</li>
+              <li>Change management</li>
+              <li>Persistence</li>
+            </ul>
+          </div>
+
+          <div id="backbone-components-view" class="step" data-x="8500" data-y="12000" data-z="7000" data-rotate-x="270" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Backbone.js</h1>
+            <h2>Collections</h2>
+            <ul>
+              <li>Array proxy</li>
+              <li>_.</li>
+            </ul>
+          </div>
+
+          <div id="backbone-components-events" class="step" data-x="8500" data-y="16000" data-z="8000" data-rotate-x="240" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Backbone.js</h1>
+            <h2>Events</h2>
+            <ul>
+              <li>General-purpose abstraction</li>
+              <li>Lightweight coupling across layers</li>
+              <li>Collections, Models, Properties, Custom</li>
+            </ul>
+          </div>
+
+        </section>
+
+        <section id="spine">
+          <div id="spine-title" class="step" data-x="12000" data-y="-1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Spine.js</h1>
+          </div>
+
+          <div id="spine-about" class="step" data-x="12000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Spine.js</h1>
+            <ul>
+              <li>Alex McCaw</li>
+              <li>Inspired by Backbone</li>
+            </ul>
+          </div>
+
+          <div id="spine-points" class="step" data-x="12000" data-y="3000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Spine.js</h1>
+            <ul>
+              <li>Sugar for common patterns</li>
+              <li>Never wait for the server</li>
+              <li>Manage everything</li>
+              <li>Flexible rendering</li>
+              <li>Prototypical</li>
+            </ul>
+          </div>
+
+          <div id="spine-components-controller" class="step" data-x="12000" data-y="6000" data-z="0" data-rotate-x="-60" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Spine.js</h1>
+            <h2>Controllers</h2>
+            <ul>
+              <li>Rendering</li>
+              <li>Event handling</li>
+              <li>Application Heirarchy</li>
+              <li>Routing</li>
+            </ul>
+          </div>
+
+          <div id="spine-components-models" class="step" data-x="12000" data-y="9000" data-z="0" data-rotate-x="-120" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Spine.js</h1>
+            <h2>Models</h2>
+            <ul>
+              <li>Key-value storage</li>
+              <li>(weak) Collection management</li>
+              <li>ActiveRecord-style</li>
+              <li>Simple Association Support</li>
+            </ul>
+          </div>
+
+          <div id="spine-components-stacks" class="step" data-x="12000" data-y="12000" data-z="0" data-rotate-x="-180" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Spine.js</h1>
+            <h2>Stacks</h2>
+            <ul>
+              <li>Extends Controller</li>
+              <li>View state machine</li>
+              <li>Manage visibility</li>
+              <li>Heirarchy building block</li>
+            </ul>
+          </div>
+
+          <div id="spine-components-events" class="step" data-x="12000" data-y="15000" data-z="0" data-rotate-x="-240" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Spine.js</h1>
+            <h2>Events</h2>
+            <ul>
+              <li>General-purpose abstraction</li>
+              <li>Lightweight coupling across layers</li>
+              <li>Models, Custom</li>
+              <li>Questionable implementation</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="ember">
+
+          <div id="ember-intro" class="step" data-x="15500" data-y="-1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Ember.js</h1>
+          </div>
+
+          <div id="ember-about" class="step" data-x="15500" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Ember.js</h1>
+            <ul>
+              <li>Tom Dale</li>
+              <li>Peter Wagenet</li>
+              <li>Yehuda Katz</li>
+              <li>a dozen others</li>
+              <li>Formerly Amber.js (formerly Sproutcore 2)</li>
+            </ul>
+          </div>
+
+          <div id="ember-points" class="step" data-x="15500" data-y="3000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Ember.js</h1>
+            <ul>
+              <li>"Eliminate Boilerplate"</li>
+              <li>Highly opinionated</li>
+              <li>Don't manage the DOM yourself</li>
+            </ul>
+          </div>
+
+          <div id="ember-components-bindings" class="step" data-x="15500" data-y="5000" data-z="2000" data-rotate-x="60" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Ember.js</h1>
+            <h2>Property bindings</h2>
+
+            <pre>
+              <code>
+App.pinyo = Ember.Object.create({hoobatz: "maguro"})
+App.panko = Ember.Object.create({hoobatzBinding: "App.pinyo.hoobatz"})
+
+App.panko.get("hoobatz")
+"maguro"
+              </code>
+            </pre>
+            <ul>
+              <li>Auto-sync data across layers</li>
+              <li>Declarative</li>
+            </ul>
+          </div>
+
+          <div id="ember-components-computed-properties" class="step" data-x="15500" data-y="7000" data-z="4000" data-rotate-x="120" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Ember.js</h1>
+            <h2>Computed properties</h2>
+            <pre>
+              <code>
+itemsInCart: (-> @get("content").length ).property()
+              </code>
+            </pre>
+            <ul>
+              <li>Treat <code>function()</code> like property</li>
+              <li>Can have dependent properties</li>
+              <li>Composition across layers</li>
+            </ul>
+          </div>
+
+          <div id="ember-components-autoupdating-views" class="step" data-x="15500" data-y="9000" data-z="8000" data-rotate-x="180" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Ember.js</h1>
+            <h2>Auto-updating views</h2>
+            <ul>
+              <li>Views react to data changes</li>
+              <li>No calls to <code>render()</code></li>
+              <li>Per-property - minimize reflows</li>
+              <li><strong>Only</strong> Handlebars.js</li>
+              <li>DOM madness</li>
+            </ul>
+          </div>
+
+          <div id="ember-components-everything-else" class="step" data-x="15500" data-y="11000" data-z="12000" data-rotate-x="240" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Ember.js</h1>
+            <h2>Everything else</h2>
+            <ul>
+              <li>Object</li>
+              <li>View</li>
+              <li>ArrayController</li>
+              <li>Set</li>
+              <li>...</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <section id="demo">
+        <div id="demo-great" class="step" data-x="21000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>They're all pretty great</h1>
+        </div>
+
+        <div id="demo-which-one" class="step" data-x="21000" data-y="3000" data-z="0" data-rotate-x="0" data-rotate-y="180" data-rotate-z="180" data-scale="3">
+          <h1>...but which one is for me?</h1>
+        </div>
+
+        <div id="demo-intro" class="step" data-x="21000" data-y="5000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>I Wroted A Demos</h1>
+        </div>
+
+        <section id="demo-constraints">
+          <div id="demo-constraints-title" class="step" data-x="24000" data-y="-2000" data-z="0" data-rotate-x="0" data-rotate-y="" data-rotate-z="15" data-scale="3">
+            <h1>Constraints</h1>
+          </div>
+
+          <div id="demo-constraints-one-page" class="step" data-x="24000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="15" data-rotate-z="30" data-scale="3">
+            <h1>One page</h1>
+          </div>
+
+          <div id="demo-constraints-organized" class="step" data-x="24000" data-y="4000" data-z="0" data-rotate-x="15" data-rotate-y="30" data-rotate-z="45" data-scale="3">
+            <h1>Organized</h1>
+          </div>
+
+          <div id="demo-constraints-no-3rd-party" class="step" data-x="24000" data-y="7000" data-z="0" data-rotate-x="30" data-rotate-y="45" data-rotate-z="60" data-scale="3">
+            <h1>(almost) no third-party libraries</h1>
+          </div>
+
+          <div id="demo-constraints-only-what-ships" class="step" data-x="24000" data-y="10000" data-z="0" data-rotate-x="45" data-rotate-y="60" data-rotate-z="75" data-scale="3">
+            <h1>Use only what shipped</h1>
+          </div>
+
+          <div id="demo-features" class="step" data-x="24000" data-y="13000" data-z="0" data-rotate-x="0" data-rotate-y="75" data-rotate-z="90" data-scale="3">
+            <h1>Features</h1>
+            <ul>
+              <li>List &amp; Detail views</li>
+              <li>Infinite scroll</li>
+              <li>URL routing</li>
+            </ul>
+          </div>
+
+        </section>
+
+        <section id="rendering-views">
+          <div id="demo-rendering-views" class="step" data-x="27000" data-y="0" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Rendering Views</h1>
+            <h2>Backbone &amp; Spine</h2>
+          </div>
+
+          <div id="demo-rendering-views-concepts" class="step" data-x="27000" data-y="3000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <ul>
+              <li>Make HTML fragment</li>
+              <li>Stick it in</li>
+            </ul>
+          </div>
+
+          <div id="demo-rendering-views-responsibility" class="step" data-x="27000" data-y="6000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2>You are responsible for</h2>
+            <ul>
+              <li>where it goes</li>
+              <li>cleaning up after it</li>
+            </ul>
+          </div>
+
+          <div id="demo-rendering-views-el" class="step" data-x="27000" data-y="9000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1 class='mono'>@el | @$el</h1>
+            <ul>
+              <li>jQuery-wrapped element selector</li>
+              <li><code>div</code> by default</li>
+              <li>unattached</li>
+              <li>optionally set to an in-DOM element</li>
+            </ul>
+            
+          </div>
+
+          <div id="demo-rendering-views-spine-helpers" class="step" data-x="27000" data-y="12000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Spine jQuery Helpers</h1>
+            <ul class='api-doc'>
+              <li>@html</li>
+              <li>@append</li>
+              <li>@prepend</li>
+              <li>@remove</li>
+              <li>...</li>
+            </ul>
+          </div>
+
+          <div id="demo-rendering-views-spine-elements-and-events" class="step" data-x="27000" data-y="15000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Spine <code>elements</code> &amp; <code>events</code></h1>
+            <pre>
+              <code>
+  elements:
+    "button" : "buttonEl"
+    "form"   : "formEl"
+
+  events: 
+    "click button" : "addToCart"
+              </code>
+            </pre>
+            <ul>
+              <li><code>elements</code> creates $() wrapped properties</li>
+              <li><code>events</code> binds (or delegates) DOM events</li>
+            </ul>
+          </div>
+
+          <section id="demo-list-item-view">
+            <section id="demo-list-item-view-backbone" class='backbone'>
+              <div id="demo-list-item-backbone-template" class="step" data-x="30000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+                <h1>Template</h1>
+                <pre>
+                  <code>
+  &lt;div&gt;
+    &lt;img src="&lt;%= @image_url %&gt;"/&gt;
+  &lt;/div&gt;
+  &lt;header&gt;
+    &lt;h2&gt;&lt;%= @designer_name %&gt;&lt;/h2&gt;
+    &lt;h1&gt;&lt;%= @name %&gt;&lt;/h1&gt;
+    &lt;p class="price">&lt;%= @price %&gt;&lt;/p&gt;
+  &lt;/header&gt;
+                  </code>
+                </pre>
+              </div>
+
+
+
+              <div id="demo-list-item-backbone-view" class="step" data-x="30000" data-y="3000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+                <h1>List Item</h1>
+                <pre>
+                  <code>
+  # app/assets/javascripts/app/views/products/index/item
+  App.Views.Products.Index.Item = class Item extends Backbone.View
+
+    tagName: "article"
+    className: "item product"
+
+    events:
+      "click" : "navigateToItem"
+
+    initialize: ->
+      @model.on "change", @render
+      @model.on "remove", @remove
+
+    render: =>
+      @$el.html JST["app/templates/products/index/item"](@model.toJSON())
+      @
+
+    navigateToItem: (e) =>
+      router.navigate "/products/#{@model.get('id')}",
+        trigger: true
+      e.preventDefault()
+
+    remove: =>
+      @$el.remove()
+                  </code>
+                </pre>
+              </div>
+
+
+              <div id="demo-list-itme-view-spine-list-item" class="step" data-x="30000" data-y="7000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+                <h1>List Item</h1>
+
+                <pre>
+                  <code>
+  # app/assets/javascripts/app/controllers/products/index/item
+  App.Controllers.Products.Index.Item = class Item extends Spine.Controller
+
+    tagName: "article"
+    className: "product item"
+
+    events: 
+      "click" : "navigateToItem"
+
+    constructor: ->
+      super
+      @item.bind "change", @render
+      @item.bind "remove", @release
+
+    render: =>
+      @html JST["app/views/products/index/item"](@item)
+      @
+
+    navigateToItem: (e) ->
+      @navigate(@item.url())
+      e.preventDefault()
+
+    release: =>
+      @item.unbind "change", @render
+      super
+
+                  </code>
+                </pre>
+              </div>
+            </section>
+          </section>
+
+          <section id="demo-list-view">
+            <section id="demo-list-view-backbone" class="backbone">
+              <div id="demo-list-view-backbone-list" class="step" data-x="30000" data-y="10000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+                <h1>List</h1>
+
+                <pre>
+                  <code>
+  # app/assets/javascripts/app/views/products/index/list                  
+  App.Views.Products.Index.List = class List extends Backbone.View
+    
+    initialize: ->
+      @collection.on "reset", @addAll
+      @collection.on "add",   @addOne
+
+    render: (category) ->
+      @blankSlate(category)
+      @collection.changeCategory(category)
+      @
+
+    addAll: =>
+      @addOne(item) for item in @collection.models
+      @trigger "added", @collection.models
+
+    addOne: (item) =>
+      @$el.append(new App.Views.Products.Index.Item(model: item).render().el)
+      @trigger "added", item
+
+    blankSlate: (category) ->
+      @$el.empty() # unbind existing DOM events
+      @$el.append JST["app/templates/products/index/placcard"](category: category)
+                  </code>
+                </pre>
+              </div>
+            </section>
+          </section>
+
+          <section id='rendering-views-ember'>
+            <div id="demo-rendering-views-ember" class="step" data-x="30000" data-y="13000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Ember</h1>
+            </div>
+
+            <div id="demo-rendering-views-ember-concepts" class="step" data-x="30000" data-y="15000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <ul>
+                <li>Declare view properties</li>
+                <li>Don't touch the merchandise</li>
+              </ul>
+            </div>
+
+            <div id="demo-rendering-views-ember-template-all-dom" class="step" data-x="30000" data-y="22000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1 class='foreground'>TL;DR</h1>
+              <pre>
+                <code class='small'>
+&lt;body&gt;
+  &lt;div id='main' class='container'&gt;
+    &lt;script type=&quot;text/x-handlebars&quot; data-template-name=&quot;index&quot;&gt;
+      &lt;div&gt;
+        &lt;h1&gt;{{title}}&lt;/h1&gt;
+        {{view &quot;App.ListView&quot; contentBinding=&quot;list&quot;}}
+        &lt;div class='waypoint'&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/script&gt;
+
+    &lt;script type=&quot;text/x-handlebars&quot; data-template-name=&quot;item&quot;&gt;
+      &lt;article class='product item'&gt;
+        {{#with &quot;content&quot;}}
+        &lt;div&gt;&lt;img {{bindAttr src=&quot;image_url&quot;}}/&gt;&lt;/div&gt;
+        &lt;header&gt;
+          &lt;h2&gt;{{designer_name}}&lt;/h2&gt;
+          &lt;h1&gt;{{name}}&lt;/h1&gt;
+          &lt;p class=&quot;price&quot;&gt;{{price}}&lt;/p&gt;
+        &lt;/header&gt;
+        {{/with}}
+      &lt;/article&gt;
+    &lt;/script&gt;
+
+    &lt;script type='text/x-handlebars' data-template-name='detail'&gt;
+      &lt;article id='detail'&gt;
+        {{#if content}}
+          {{#with content}}
+          &lt;header&gt;
+            &lt;ul class=&quot;breadcrumb&quot;&gt;
+              &lt;li&gt;
+                &lt;a {{bindAttr href=&quot;categoryFragment&quot;}} class=&quot;navigable&quot;&gt;{{category}}&lt;/a&gt;&lt;span class='divider'&gt;/&lt;/span&gt;
+              &lt;/li&gt;
+              &lt;li class='active'&gt;
+                &lt;a {{bindAttr href=&quot;itemUrl&quot;}} class=&quot;navigable&quot;&gt;
+                  {{designer_name}} - {{name}}
+                &lt;/a&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/header&gt;
+          &lt;aside&gt;
+            &lt;div&gt;&lt;img {{bindAttr src=&quot;image_url&quot;}}/&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;/div&gt;
+          &lt;/aside&gt;
+          &lt;section&gt;
+            &lt;header&gt;
+              &lt;h2&gt;{{designer_name}}&lt;/h2&gt;
+              &lt;h1&gt;{{name}}&lt;/h1&gt;
+              &lt;p class=&quot;price&quot;&gt;{{price}}&lt;/p&gt;
+            &lt;/header&gt;
+            {{/with}}
+            &lt;div class='action'&gt;
+              &lt;button {{bindAttr class=&quot;inCart&quot;}} {{action &quot;addToCart&quot;}} {{bindAttr disabled=&quot;inCart&quot;}}&gt;{{cartStatus}}&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div class='description'&gt;
+              Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat. 
+              &lt;ul&gt;
+                &lt;li&gt;Vel illum dolore eu feugiat nulla facilisis at vero eros.&lt;/li&gt;
+                &lt;li&gt;et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit.&lt;/li&gt;
+                &lt;li&gt;100% augue duis dolore te feugait nulla facilisi.&lt;/li&gt;
+                &lt;li&gt;Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+          &lt;/section&gt;
+        {{/if}}
+      &lt;/article&gt;
+    &lt;/script&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+                </code>
+              </pre>
+            </div>
+
+            <div id="demo-views-ember-template-list-item-template" class="step" data-x="30000" data-y="25500" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Template</h1>
+              <pre>
+                <code>
+    &lt;script type=&quot;text/x-handlebars&quot; data-template-name=&quot;item&quot;&gt;
+      &lt;article class='product item'&gt;
+        {{#with &quot;content&quot;}}
+        &lt;div&gt;&lt;img {{bindAttr src=&quot;image_url&quot;}}/&gt;&lt;/div&gt;
+        &lt;header&gt;
+          &lt;h2&gt;{{designer_name}}&lt;/h2&gt;
+          &lt;h1&gt;{{name}}&lt;/h1&gt;
+          &lt;p class=&quot;price&quot;&gt;{{price}}&lt;/p&gt;
+        &lt;/header&gt;
+        {{/with}}
+      &lt;/article&gt;
+    &lt;/script&gt;
+                </code>
+              </pre>
+            </div>
+
+            <div id="demo-views-ember-template-list-item" class="step" data-x="30000" data-y="28000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>List Item</h1>
+              <pre>
+                <code>
+# app/assets/javascripts/views/products/item
+App.ItemView = Ember.View.extend
+  templateName: "item"
+  className: ["product"]
+                </code>
+              </pre>
+            </div>
+
+            <div id="demo-views-ember-list-controller" class="step" data-x="30000" data-y="30500" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>List controller</h1>
+              <pre>
+                <code>
+# app/assets/javascripts/controllers/items
+App.ItemsController = Ember.ArrayController.extend
+  init: ->
+    @_super()
+    @resetContent()
+
+  resetContent: ->
+    ...
+    @set("content", [])
+                </code>
+              </pre>
+              <pre>
+                <code>
+# app/assets/javascripts/views/products/list
+App.ListView = Ember.CollectionView.extend
+  itemViewClass: "App.ItemView"
+  classNames: ["products list"]
+
+                </code>
+              </pre>
+            </div>
+
+            <div id="demo-views-ember-template-list-view" class="step" data-x="30000" data-y="32500" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Index View</h1>
+              <pre>
+                <code>
+&lt;script type=&quot;text/x-handlebars&quot; data-template-name=&quot;index&quot;&gt;
+  &lt;div&gt;
+    &lt;div class=&quot;item placcard&quot;&gt;
+      &lt;h1&gt;{{title}}&lt;/h1&gt;
+    &lt;/div&gt;
+    {{view &quot;App.ListView&quot; contentBinding=&quot;content&quot;}}
+    &lt;div class='waypoint'&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/script&gt;
+                </code>
+              </pre>
+              <pre>
+                <code>
+# app/assets/javascripts/views/products/index
+App.IndexView = Ember.View.extend
+  templateName: "index"
+  classNames: ["index"]
+...
+              </code>
+              </pre>
+            </div>
+
+            <div id="demo-views-ember-list-main" class="step" data-x="30000" data-y="35000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Kick it off</h1>
+              <pre>
+                <code>
+# app/assets/javascripts/app/main
+$ -> 
+  App.itemsController = App.ItemsController.create
+    category: "MEN"
+
+  App.index = App.IndexView.create
+    content: App.itemsController
+
+  App.itemsController.getItems()
+                </code>
+              </pre>
+            </div>
+
+            <div id="demo-views-ember-list-wait" class="step" data-x="30000" data-y="38000" data-z="0" data-rotate-x="0" data-rotate-y="45" data-rotate-z="0" data-scale="3">
+              <h1>wait</h1>
+            </div>
+
+            <div id="demo-views-ember-list-go-back" class="step" data-x="30000" data-y="41000" data-z="0" data-rotate-x="0" data-rotate-y="90" data-rotate-z="0" data-scale="3">
+              <h1>go back</h1>
+            </div>
+
+            <div id="demo-views-ember-list-rails-magic" class="step" data-x="30000" data-y="44000" data-z="0" data-rotate-x="20" data-rotate-y="180" data-rotate-z="0" data-scale="3">
+              <h1>And you thought Rails was magic</h1>
+            </div>
+
+            <div id="demo-views-ember-madness" class="step" data-x="30000" data-y="48000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>DOM madness</h1>
+              <img src='images/ember-dom-madness.tiff' />
+            </div>
+
+          </section>
+
+        </section>
+
+
+        <section id="demo-models">
+          <section id='demo-models-backbone'>
+            <div id="demo-models-backbone-intro" class="step" data-x="34000" data-y="0" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Models &amp; Collections</h1>
+              <h2>Backbone</h2>
+            </div>
+
+            <div id="demo-models-backbone-product-model" class="step" data-x="34000" data-y="2000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Model</h1>
+              <pre>
+                <code>
+# app/assets/javascripts/app/models/product
+App.Models.Product = class Product extends Backbone.Model
+                </code>
+              </pre>
+            </div>
+
+            <div id="demo-models-duplicate-errrr" class="step" data-x="34000" data-y="5000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>errrrr..</h1>
+              <pre>
+                <code class='medium'>
+window.Patient = class Patient extends Spine.Model
+  ...                  
+  @isValidSSN: (value, element) ->
+    re = /^([0-6]\d{2}|7[0-6]\d|77[0-2])([ \-]?)(\d{2})\2(\d{4})$/
+    temp = value.replace(/-|\s/g, "")
+    return false unless re.test(temp) 
+    return false if (temp.substring(0, 3) == "000") or (temp.substring(3, 5) == "00") or (temp.substring(5, 9) == "0000")
+    return true
+    
+  @isValidBirthdate: (value, element) ->
+    date = Date.parseExact(value, ["M/d/yyyy", "M-d-yyyy"])
+    return false unless date
+    dateIsTodayOrEarlier = (Date.today().compareTo(date) >= 0)
+    return false unless dateIsTodayOrEarlier
+    return true
+  
+  validate: ->
+    ssn = @ssn_entry || @formatted_ssn || @ssn
+    birthdate = @birthdate_entry || @birthdate
+    errors = {}
+    ssn_errors = []
+    birthdate_errors = []
+
+    if @newRecord
+      ssn_errors.push("must be an SSN") unless ssn and @constructor.isValidSSN(ssn)
+      birthdate_errors.push("must be a valid date") unless birthdate and @constructor.isValidBirthdate(birthdate)
+
+    errors.ssn = ssn_errors if ssn_errors.length > 0
+    errors.birthdate = birthdate_errors if birthdate_errors.length > 0
+    if $.isEmptyObject(errors) then return null else return errors
+  
+  parseBirthdateEntry: ->
+    @birthdate = Date.parse(@birthdate_entry) if @birthdate_entry?
+
+  parseSsnEntry: ->
+    if @ssn_entry?
+      @ssn = @ssn_entry.replace(/-/g, "")
+      @masked_ssn = "XXX-XX-" + @ssn_entry.slice(-4)
+      @formatted_ssn = @ssn.slice(0, 3) + "-" + @ssn.slice(3,5) + "-" + @ssn.slice(5,9)
+
+  full_name: ->
+    [@first_name, @middle_name, @last_name].join(" ").replace(/\s{2}/g, " ")
+                </code>
+              </pre>
+            </div>
+
+            <div id="demo-models-duplicate-logic" class="step" data-x="34000" data-y="8000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>You'll end up duplicating</h1>
+              <ul>
+                <li>Validators</li>
+                <li>Virtual accessors</li>
+                <li>View-oriented helpers</li>
+                <li>Basically all of ActiveSupport</li>
+              </ul>
+            </div>
+
+            <div id="demo-models-backbone-persistence-adapter" class="step" data-x="34000" data-y="11000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Model Persistence</h1>
+              <h2>Backbone &amp; Spine REST</h2>
+              <ul class='api-doc'>
+                <li>
+                  <dd>fetch()</dd>
+                  <dt>GET /products/123</dt>
+                </li>
+                <li>
+                  <dd>create()</dd>
+                  <dt>POST /products</dt>
+                </li>
+                <li>
+                  <dd>save()</dd>
+                  <dt>POST /products</dt>
+                  <dt>PUT  /products/123</dt>
+                </li>
+                <li>
+                  <dd>destroy()</dd>
+                  <dt>DELETE /products/123</dt>
+                </li>
+              </ul>
+            </div>
+            <div id="demo-collection-backbone-persistence" class="step" data-x="34000" data-y="14000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Collection Persistence</h1>
+              <h2>Backbone &amp; Spine REST</h2>
+              <ul class='api-doc'>
+                <li>
+                  <dd>fetch()</dd>
+                  <dt>GET /products</dt>
+                </li>
+              </ul>
+            </div>
+
+            <div id="demo-collection-backbone-persistence-ajax-options" class="step" data-x="34000" data-y="17000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Bacbone Custom AJAX</h1>
+              <h2>jQuery syntax</h2>
+              <pre>
+                <code>
+# app/assets/javascripts/app/collections/products
+App.Collections.Products = class Products extends Backbone.Collection
+  url: "/products"
+
+  nextPage: (options) =>
+    options = options or {}
+    options = $.extend {}, {add: true}, options
+    @fetch
+      data: 
+        page:     @next_page
+        per_page: @calculatePerPage()
+        category: @category
+      add: options.add
+
+  parse: (data, xhr) ->
+    @handlePaging(xhr)
+    super data, xhr
+                </code>
+              </pre>
+            </div>
+
+            <div id="demo-collection-persistence-paging" class="step" data-x="34000" data-y="17000" data-z="1500" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Some conventions we break</h1>
+              <pre>
+                <code>
+config.include_json_root = false
+                </code>
+              </pre>
+              <pre>
+                <code>
+X-Pagination:page: 2, per_page: 20, next_page: 3, total_pages: 37
+                </code>
+              </pre>
+            </div>
+
+            <div id="demo-collection-persistence-root-in-json" class="step" data-x="34000" data-y="30000" data-z="0" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Some conventions are suck</h1>
+              <pre>
+                <code>
+wrap_parameters Engagement, 
+  :include => Engagement.encryptable_attributes + [:birthdate_entry, :ssn_entry]
+                </code>
+              </pre>
+            </div>
+
+            <div id="demo-collection-spine-persistence-ajax-options" class="step" data-x="34000" data-y="20000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Spine Custom AJAX</h1>
+              <h2>jQuery syntax</h2>
+              <pre>
+                <code>
+# app/assets/javascripts/app/models/product
+App.Models.Product = class Product extends Spine.Model
+  @configure "Product", "id", "name", "designer_name", "price", "image_url", "description", "category"
+  @extend Spine.Model.Ajax
+
+  ...
+
+  @nextPage: (callback) ->
+    @one "paginated", @handlePaging
+    @one "paginated", callback if typeof callback is "function"
+    Product.fetch 
+      data:
+        page:     Product.next_page
+        per_page: Product.calculatePerPage()
+        category: Product.category
+      processData: true
+      success: (data, status, xhr) =>
+        @trigger("paginated", data, status, xhr)
+  
+                </code>
+              </pre>
+            </div>
+
+          </section>
+
+          <section id="demo-models-controllers-ember">
+            <div id="demo-models-controllers-ember-object" class="step" data-x="34000" data-y="23000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Ember Models</h1>
+              <pre>
+                <code>
+# app/assets/javascripts/app/models/product
+App.Product = Ember.Object.extend
+
+  title: (-> 
+    @get("designer_name") + ": " + @get("name")
+    ).property("designer_name", "name")
+                </code>
+              </pre>
+              <h2>Are really just objects</h2>
+            </div>
+
+            <div id="demo-models-controllers-ember-controller-just-object" class="step" data-x="34000" data-y="27000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Ember Controllers</h1>
+              <pre>
+                <code>
+# app/assets/javascripts/app/controllers/item
+App.ProductController = Ember.Object.extend
+  content: null
+
+  addToCart: ->
+    if @canAdd()
+      @cart.addObject(@get("content"))
+
+  canAdd: -> 
+    @get("content") and !@inCart
+
+  inCart: Ember.computed(-> @cart.contains(@get("content"))).property("content")
+                </code>
+              </pre>
+              <pre>
+                <code>
+# app/assets/javascripts/app/index
+->
+  @detailController = App.ProductController.create
+    content: null
+    cart: @cart
+                </code>
+              </pre>
+              <h2>Are also just objects</h2>
+            </div>
+
+            <div id="demo-models-controllers-ember-controller-ajax" class="step" data-x="34000" data-y="30000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Ember Controllers</h1>
+              <pre>
+                <code>
+# app/assets/javascripts/app/controllers/items
+App.ItemsController = Ember.ArrayController.extend
+  ...
+  getItems: ->
+    self = @
+    $.ajax
+      url: "/products"
+      type: "GET"
+      contentType: "application/json"
+      dataType: "json"
+      data: 
+        page: @.get("next_page")
+        per_page: @get("per_page")
+        category: @get("category")
+      success: (data, status, xhr) ->
+        self.setContent(data)
+        self.handlePaging(xhr)
+
+  setContent: (data) ->
+    @addObject(App.Product.create(item)) for item in data
+
+  ....
+                </code>
+              </pre>
+              <h2>except for the special ones</h2>
+            </div>
+
+          </section>
+
+        </section>
+
+        <section id="demo-app">
+          <div id="demo-app-setup" class="step" data-x="43000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>App setup</h1>
+          </div>
+
+          <div id="demo-app-main" class="step" data-x="43000" data-y="5000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <pre>
+              <code>
+# app/assets/javascripts/app/main
+App.MainView = class Main extends Backbone.View
+
+  initialize: ->
+    @products = new App.Views.Products.Section
+
+    @sections = [@products]
+
+
+  render: ->
+    @$el.append(section.render().el) for section in @sections
+    @
+
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-app-main-spine" class="step" data-x="43000" data-y="8000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <pre>
+              <code>
+# app/assets/javascripts/app/main
+App.Main = class Main extends Spine.Controller
+  constructor: ->
+    super
+
+    @products = new App.Controllers.Products.Section(cart: @cart)
+
+    @sections = [@products]
+
+    @manager = new Spine.Manager(@sections...)
+
+    ...
+  render: ->
+    @append section.render().el for section in @sections
+    @
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-app-main-ember" class="step" data-x="43000" data-y="11000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <pre>
+              <code>
+# app/assets/javascripts/app/main
+App.MainController = Ember.Object.extend
+  init: -> 
+    @_super()
+
+    @itemsController = App.ItemsController.create(category: "MEN")
+
+    @index = App.IndexView.create
+      list: @itemsController
+      titleBinding: "list.categoryTitle"  
+
+    @detail = App.ProductController.create
+      content: null
+      cart: @cart
+
+    @detailController = App.ProductController.create
+      content: null
+      cart: @cart
+
+    @detail = App.DetailView.create
+      inCartBinding: "detailController.inCart"
+      contentController: @detailController
+      categoryBinding: "@itemsController.category"
+
+  render: ->
+    @get("itemsController").getItems()
+              </code>
+            </pre>
+          </div>
+        </section>
+
+        <section id='demo-cart'>
+
+          <div id="demo-cart-intro" class="step" data-x="47000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Cart</h1>
+          </div>
+
+          <div id="demo-cart-backbone-cart" class="step" data-x="47000" data-y="4000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Cart</h1>
+            <h2>Backbone</h2>
+            <pre>
+              <code>
+# app/assets/javascripts/app/collections/cart
+App.Collections.Cart = class Cart extends Backbone.Collection
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-cart-backbone-view" class="step" data-x="47000" data-y="7000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Cart</h1>
+            <h2>Backbone</h2>
+            <pre>
+              <code>
+# app/assets/javascripts/app/views/products/show/detail
+App.Views.Products.Show.Detail = class Detail extends Backbone.View
+
+events: 
+  "click button": "addToCart"
+
+initialize: ->
+  window.cart.on "add", @handleButtonState
+  
+addToCart: (e) =>
+  window.cart.add @model
+
+handleButtonState: =>
+  if window.cart.contains @model.id
+    @$("button").attr "disabled", "disabled"
+    @$("button").addClass "disabled"
+  else
+    @$("button").removeAttr "disabled"
+    @$("button").removeClass "disabled"
+              </code>
+            </pre>
+          </div>
+
+
+          <div id="demo-cart-ember-template" class="step" data-x="47000" data-y="10000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Cart</h1>
+            <h2>Ember</h2>
+            <pre>
+              <code>
+&lt;div class='action'&gt;
+  &lt;button {{bindAttr class=&quot;inCart&quot;}} 
+          {{action &quot;addToCart&quot;}} 
+          {{bindAttr disabled=&quot;inCart&quot;}}&gt;
+       {{cartStatus}}
+  &lt;/button&gt;
+&lt;/div&gt;
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-cart-ember" class="step" data-x="47000" data-y="13000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Cart</h1>
+            <h2>Ember</h2>
+            <pre>
+              <code>
+# app/assets/javascripts/app/controllers/products
+App.ProductController = Ember.Object.extend
+  content: null
+
+  addToCart: ->
+    if @canAdd()
+      @cart.addObject(@get("content"))
+
+  canAdd: -> 
+    @get("content") and !@inCart
+
+  inCart: (-> @cart.contains(@get("content"))).property()
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-cart-ember-view" class="step" data-x="47000" data-y="16000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Cart</h1>
+            <h2>Ember</h2>
+            <pre>
+              <code>
+# app/assets/javascripts/app/views/products/detail
+App.DetailView = Ember.View.extend
+  contentBinding: "contentController.content"
+  inCartBinding: "contentController.inCart"
+
+  addToCart: (e) ->
+    @contentController.addToCart()
+    e.preventDefault()
+
+  cartStatus: (-> if @get("inCart") then "In Cart" else "Add To Cart").property("inCart")
+  ...
+              </code>
+            </pre>
+          </div>
+
+        </section>
+
+        <section id='demo-routing'>
+          <div id="demo-routing-intro" class="step" data-x="37000" data-y="-2000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Routing</h1>
+          </div>
+
+          <div id="demo-routing-why" class="step" data-x="37000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Why?</h1>
+            <ul>
+              <li>Supports linking</li>
+              <li>Supports reloading</li>
+              <li>Also duh</li>
+            </ul>
+          </div>
+
+          <div id="demo-routing-why-srp" class="step" data-x="37000" data-y="4000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Why?</h1>
+            <h2>Central state dispatch</h2>
+          </div>
+
+          <div id="demo-routing-why-srp-example" class="step" data-x="37000" data-y="4000" data-z="100" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <pre>
+              <code>
+$ ->
+  $('body').on "click", "a.navigable", (e) ->
+    main.navigate(e.currentTarget.pathname)
+    e.preventDefault()
+              </code>
+              <code>
+&lt;a href='/products/123' class='navigable'&gt;Herringbone Blazer&lt;/a&gt;
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-routing-backbone" class="step" data-x="37000" data-y="7000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Routing</h1>
+            <h2>Backbone</h2>
+            <pre>
+              <code>
+# app/assets/javascripts/app/routes
+App.Router = class Router extends Backbone.Router
+  routes:
+    "products"     : "index"
+    "products/:id" : "show"
+    ":category"    : "index"
+    ""             : "index"
+
+  index: (params) ->
+    App.main.products.index.show(params)
+
+  show: (params) ->
+    App.main.products.show.show(params)
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-routing-spine" class="step" data-x="37000" data-y="10000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Routing</h1>
+            <h2>Spine</h2>
+            <pre>
+              <code>
+# app/assets/javascripts/controllers/main
+App.Main = class Main extends Spine.Controller
+  constructor: ->
+    routes:
+      "/products"     :    @products.index.show
+      "/products/:id" :    @products.show.show
+      "/:category"    :    @products.index.show
+      "/"             :    @products.index.show
+              </code>
+            </pre>
+            <pre>
+              <code>
+# app/assets/javascripts/controllers/products/products
+App.Controllers.Products.Section = class Products extends Spine.Stack
+  constructor: ->
+    @controllers = 
+      index: App.Controllers.Products.Index.Main
+      show:  App.Controllers.Products.Show.Main
+    super
+              </code>
+            </pre>
+            <ul>
+              <li>Any Controller or Stack can route</li>
+            </ul>
+          </div>
+
+          <div id="demo-routing-ember" class="step" data-x="37000" data-y="13000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Ember</h1>
+            <h2>...doesn't have routing yet</h2>
+            <pre>
+              <code class='medium'>
+# app/assets/javascripts/app/history
+App.router = Ember.Object.create
+  routeList: []
+  nameMatch: /:[\w\d]+/g
+  nameReplacement: "([\\w\\d]+)"
+
+  routes: (obj) ->
+    App.router.add(key, value) for key, value of obj
+
+  add: (path, callback) ->
+    names = []
+    if App.router.nameMatch.test(path)
+      for name in path.match(App.router.nameMatch)
+        names.push name.match(/[\w\d]+/)
+        path = path.replace(App.router.nameMatch, App.router.nameReplacement, "g")
+
+    routeObj = 
+      path:  new RegExp("^#{path}$")
+      names: names
+      callback: callback
+
+    App.router.routeList.push routeObj
+
+  navigate: (path, title = null, params = {}) ->
+    params["path"] ||= path
+    History.pushState params, title, path
+
+  dispatch: (hash) ->
+    if route = @match(hash)
+      params = {}
+      parts = hash.match(route.path)
+      params[route.names[i]] = value for value, i in parts.slice(1, parts.length)
+      route.callback.call(App.main, params)
+    else
+      false
+
+  match: (hash) ->
+    for route in @routeList
+      if route.path.test(hash)
+        return route
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-routing-state-machine" class="step" data-x="37000" data-y="16000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>But it does have a state machine</h1>
+            <pre>
+              <code>
+# app/assets/javascripts/app/manager
+App.manager = Ember.StateManager.create
+  rootElement: "#main"
+
+  indexView: Ember.ViewState.create
+    view: App.main.index
+    initialState: true
+
+  showView: Ember.ViewState.create
+    view: App.main.detail
+
+  show: (params) ->
+    item = App.main.itemsController.find (item) ->
+      item.get("id") is parseInt(params.id)
+    App.main.detailController.set("content", item)
+    App.manager.goToState("showView")
+
+  index: ->
+    App.manager.goToState("indexView")
+    App.main.index.rebindWaypoint()
+
+              </code>
+            </pre>
+          </div>
+
+        </section>
+
+        <section id='reloading-without-data'>
+          <div id="demo-routing-what-if-isnt-loaded" class="step" data-x="41000" data-y="16000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>What if I need to show something</h1>
+            <h2>and it's not loaded yet</h2>
+            <ul>
+              <li>Reload the page</li>
+              <li>Click a link</li>
+            </ul>
+          </div>
+
+          <div id="demo-routing-what-if-show-method" class="step" data-x="41000" data-y="20000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <pre>
+              <code>
+# app/assets/javascripts/controllers/main
+App.Main = class Main extends Spine.Controller
+  constructor: ->
+    routes:
+      "/products/:id" :    @products.show.show
+              </code>
+            </pre>
+            <pre>
+              <code>
+# app/assets/javascripts/controllers/products/show
+App.Controllers.Products.Show.Main = class Main extends Spine.Controller
+render: (item) ->
+  @html @detail.render(item).el
+  @active()
+  @
+
+show: (params) =>
+  if item = Product.exists(params.id)
+    @render(item)
+  else
+    Product.nextPage =>
+      Product.one "refresh", =>
+        @show(params)
+
+  ....
+              </code>
+            </pre>
+          </div>
+
+
+        </section>
+
+      </section>
+
+      <section id="outro">
+
+        <div id="outro-tape" class="step" data-x="60000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <img src="images/studer_a800.jpg" style="width: 600px;" />
+        </div>
+
+        <div id="outro-console" class="step" data-x="60000" data-y="4000" data-z="15" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <img src="images/Skywalker_console.jpeg" style="width: 800px;" />
+        </div>
+
+        <div id="outro-adat" class="step" data-x="60000" data-y="7000" data-z="-15" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <img src="images/38_adat_color.jpg" style="width: 800px;" />
+        </div>
+
+        <div id="outro-pro-tools" class="step" data-x="60000" data-y="10000" data-z="15" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <img src="images/Pro Tools.png" style="width: 1000px;" />
+        </div>
+
+      </section>
+
     </div>
     <script src="javascripts/impress.js" type="text/javascript"></script>
     <script>impress();</script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </body>
 </html>
