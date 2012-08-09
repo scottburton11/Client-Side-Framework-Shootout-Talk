@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">    
     <script src="javascripts/app.js" type="text/javascript"></script>
   </head>
-  <body class='orange_peel'>
+  <body class='actual_orange'>
     <div id='impress' class='impress-not-supported'>
   
       <section id="intro">
@@ -840,9 +840,10 @@ itemsInCart: (-> @get("content").length ).property()
 
 
               <div id="demo-list-item-backbone-view" class="step" data-x="30000" data-y="6000" data-z="0" data-rotate-x="15" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-                <h1>Backbone</h1>
+
                 <h2>List Item</h2>
                 <pre>
+                  <h3 class='framework-name'>Backbone</h3>
                   <code >
   # app/assets/javascripts/app/views/products/index/item
   App.Views.Products.Index.Item = class Item extends Backbone.View
@@ -862,7 +863,7 @@ itemsInCart: (-> @get("content").length ).property()
       @
 
     navigateToItem: (e) =>
-      router.navigate "/products/#{@model.get('id')}",
+      App.router.navigate "/products/#{@model.get('id')}",
         trigger: true
       e.preventDefault()
                   </code>
@@ -870,9 +871,10 @@ itemsInCart: (-> @get("content").length ).property()
               </div>
 
               <div id="demo-list-item-spine-view" class="step" data-x="30000" data-y="6000" data-z="5000" data-rotate-x="15" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-                <h1>Spine</h1>
+
                 <h2>List Item</h2>
                 <pre>
+                  <h3 class='framework-name'>Spine</h3>
                   <code >
   # app/assets/javascripts/app/controllers/products/index/item
   App.Controllers.Products.Index.Item = class Item extends Spine.Controller
@@ -904,9 +906,9 @@ itemsInCart: (-> @get("content").length ).property()
           <section id="demo-list-view">
             <section id="demo-list-view-backbone" class="backbone">
               <div id="demo-list-view-backbone-list" class="step" data-x="30000" data-y="10000" data-z="0" data-rotate-x="30" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-                <h1>List</h1>
-
+                <h2>List</h2>
                 <pre>
+                  <h3 class='framework-name'>Backbone</h3>
                   <code>
   # app/assets/javascripts/app/views/products/index/list                  
   App.Views.Products.Index.List = class List extends Backbone.View
@@ -927,10 +929,7 @@ itemsInCart: (-> @get("content").length ).property()
     addOne: (item) =>
       @$el.append(new App.Views.Products.Index.Item(model: item).render().el)
       @trigger "added", item
-
-    blankSlate: (category) ->
-      @$el.empty() # unbind existing DOM events
-      @$el.append JST["app/templates/products/index/placcard"](category: category)
+    ...
                   </code>
                 </pre>
               </div>
@@ -1028,8 +1027,9 @@ itemsInCart: (-> @get("content").length ).property()
             </div>
 
             <div id="demo-views-ember-template-list-item-template" class="step" data-x="30000" data-y="25500" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>Template</h1>
+              <h2>Template</h2>
               <pre>
+                <h3 class='framework-name'>Ember</h3>
                 <code>
     &lt;script type=&quot;text/x-handlebars&quot; data-template-name=&quot;item&quot;&gt;
       &lt;article class='product item'&gt;
@@ -1048,8 +1048,9 @@ itemsInCart: (-> @get("content").length ).property()
             </div>
 
             <div id="demo-views-ember-template-list-item" class="step" data-x="30000" data-y="28000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>List Item</h1>
+              <h2>List Item</h2>
               <pre>
+                <h3 class='framework-name'>Ember</h3>
                 <code>
 # app/assets/javascripts/views/products/item
 App.ItemView = Ember.View.extend
@@ -1060,8 +1061,9 @@ App.ItemView = Ember.View.extend
             </div>
 
             <div id="demo-views-ember-list-controller" class="step" data-x="30000" data-y="30500" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>List controller</h1>
+              <h2>List</h2>
               <pre>
+                <h3 class='framework-name'>Ember</h3>
                 <code>
 # app/assets/javascripts/controllers/items
 App.ItemsController = Ember.ArrayController.extend
@@ -1088,6 +1090,7 @@ App.ListView = Ember.CollectionView.extend
             <div id="demo-views-ember-template-list-view" class="step" data-x="30000" data-y="32500" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
               <h1>Index View</h1>
               <pre>
+                <h3 class='framework-name'>Ember</h3>
                 <code>
 &lt;script type=&quot;text/x-handlebars&quot; data-template-name=&quot;index&quot;&gt;
   &lt;div&gt;
@@ -1114,6 +1117,7 @@ App.IndexView = Ember.View.extend
             <div id="demo-views-ember-list-main" class="step" data-x="30000" data-y="35000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
               <h1>Kick it off</h1>
               <pre>
+                <h3 class='framework-name'>Ember</h3>
                 <code>
 # app/assets/javascripts/app/main
 $ -> 
@@ -1145,6 +1149,13 @@ $ ->
               <img src='images/ember-dom-madness.tiff' />
             </div>
 
+            <div id="demo-views-ember-but-wait" class="step" data-x="30000" data-y="52000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <h1>Wait, hold on</h1>
+              <h2>I thought you said Ember <br/>broke all of that?</h2>
+            </div>
+
+
+
           </section>
 
         </section>
@@ -1164,6 +1175,7 @@ $ ->
 
           <div id="demo-app-main" class="step" data-x="43000" data-y="5000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <pre>
+              <h3 class='framework-name'>Backbone</h3>
               <code>
 # app/assets/javascripts/app/main
 App.MainView = class Main extends Backbone.View
@@ -1184,6 +1196,7 @@ App.MainView = class Main extends Backbone.View
 
           <div id="demo-app-main-spine" class="step" data-x="43000" data-y="8000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <pre>
+              <h3 class='framework-name'>Spine</h3>
               <code>
 # app/assets/javascripts/app/main
 App.Main = class Main extends Spine.Controller
@@ -1206,6 +1219,7 @@ App.Main = class Main extends Spine.Controller
 
           <div id="demo-app-main-ember" class="step" data-x="43000" data-y="11000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <pre>
+              <h3 class='framework-name'>Ember</h3>
               <code>
 # app/assets/javascripts/app/main
 App.MainController = Ember.Object.extend
@@ -1249,91 +1263,23 @@ App.MainController = Ember.Object.extend
             <h1>Routing</h1>
           </div>
 
-          <div id="demo-routing-why" class="step" data-x="37000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <div id="demo-routing-srp" class="step" data-x="37000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Why?</h1>
+            <h2>State management</h2>
+          </div>
+
+          <div id="demo-routing-why" class="step" data-x="37000" data-y="4000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h1>Why?</h1>
             <ul>
               <li>Supports linking</li>
               <li>Supports reloading</li>
-              <li>Also duh</li>
-            </ul>
-          </div>
-
-          <div id="demo-routing-why-srp" class="step" data-x="37000" data-y="4000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <h1>Why?</h1>
-            <h2>Central state dispatch</h2>
-          </div>
-
-          <div id="demo-routing-why-srp-example" class="step" data-x="37000" data-y="4000" data-z="100" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <pre>
-              <code>
-$ ->
-  $('body').on "click", "a.navigable", (e) ->
-    main.navigate(e.currentTarget.pathname)
-    e.preventDefault()
-              </code>
-              <code>
-&lt;a href='/products/123' class='navigable'&gt;Herringbone Blazer&lt;/a&gt;
-              </code>
-            </pre>
-          </div>
-
-          <div id="demo-routing-backbone" class="step" data-x="37000" data-y="7000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <h1>Routing</h1>
-            <h2>Backbone</h2>
-            <pre>
-              <code>
-# app/assets/javascripts/app/routes
-App.Router = class Router extends Backbone.Router
-  routes:
-    "products"     : "index"
-    "products/:id" : "show"
-    ":category"    : "index"
-    ""             : "index"
-
-  index: (params) ->
-    App.main.products.index.show(params)
-
-  show: (params) ->
-    App.main.products.show.show(params)
-              </code>
-            </pre>
-          </div>
-
-          <div id="demo-routing-spine" class="step" data-x="37000" data-y="10000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <h1>Routing</h1>
-            <h2>Spine</h2>
-            <pre>
-              <code>
-# app/assets/javascripts/controllers/main
-App.Main = class Main extends Spine.Controller
-  constructor: ->
-    routes:
-      "/products"     :    @products.index.show
-      "/products/:id" :    @products.show.show
-      "/:category"    :    @products.index.show
-      "/"             :    @products.index.show
-              </code>
-            </pre>
-            <pre>
-              <code>
-# app/assets/javascripts/controllers/products/products
-App.Controllers.Products.Section = class Products extends Spine.Stack
-  constructor: ->
-    @controllers = 
-      index: App.Controllers.Products.Index.Main
-      show:  App.Controllers.Products.Show.Main
-    super
-              </code>
-            </pre>
-            <ul>
-              <li>Any Controller or Stack can route</li>
             </ul>
           </div>
 
           <div id="demo-routing-ember" class="step" data-x="37000" data-y="13000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <h1>Ember</h1>
-            <h2>...doesn't have routing yet</h2>
+            <h2>...didn't have routing yet</h2>
             <pre>
+              <h3 class='framework-name'>Ember</h3>
               <code class='medium'>
 # app/assets/javascripts/app/history
 App.router = Ember.Object.create
@@ -1379,6 +1325,166 @@ App.router = Ember.Object.create
             </pre>
           </div>
 
+          <div id="demo-routing-new-ember-app" class="step" data-x="37000" data-y="16000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2>New App Setup</h2>
+            <pre>
+              <h3 class='framework-name'>Ember</h3>
+              <code>
+App = Ember.Application.create({
+  ApplicationController: Ember.Controller.extend(),
+  ApplicationView: Ember.View.extend({
+    templateName: 'application'
+  }),
+
+  ProductsController: Ember.Controller.extend(),
+  ProductsView: Ember.View.extend({
+    templateName: 'products'
+  }),
+
+  ProductController: Ember.Controller.extend(),
+  ProductView: Ember.View.extend({
+    templateName: 'product'
+  }),
+....
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-routing-new-ember-router" class="step" data-x="37000" data-y="19000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2>New Router</h2>
+            <pre>
+              <h3 class='framework-name'>Ember</h3>
+              <code>
+var router = Ember.Router.extend({
+    root: Ember.Route.extend({
+      products: Ember.Route.extend({
+        route: "/products",
+        showProduct: function(router, context) {
+          router.transitionTo("product", context.context);
+        },
+        connectOutlets: function(router) {
+          var products = App.productsController.all();
+          router.get("applicationController").connectOutlet("products", products);
+        }
+      }),
+
+      product: Ember.Route.extend({
+        route: "/products/:id",
+        connectOutlets: function(router, context) {
+          var product  = App.productsController.find(context.id);
+          router.get("applicationController").connectOutlet("product", product);
+        }
+      }),
+....
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-routing-new-ember-layout" class="step" data-x="37000" data-y="22000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2>Layouts Outlets</h2>
+            <pre>
+              <h3 class='framework-name'>Ember</h3>
+              <code>
+&lt;script type="text/x-handlebars" data-template-name="application"&gt;
+  &lt;h1&gt;Products&lt;/h1&gt;
+  {{outlet}}
+&lt;/script&gt;
+              </code>
+            </pre>
+            <pre>
+              <code>
+&lt;script type='text/x-handlebars' data-template-name='products'&gt;
+  &lt;h2>Products&lt;/h2&gt;
+  &lt;ul&gt;
+    {{#each product in controller}}
+    &lt;li>&lt;a {{action showProduct product}}>{{product.name}}&lt;/a&gt;&lt;/li&gt;
+    {{/each}}
+  &lt;/ul&gt;
+&lt;/script&gt;
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-routing-new-ember-app-init" class="step" data-x="37000" data-y="25000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2>New App Initialization</h2>
+            <pre>
+              <h3 class='framework-name'>Ember</h3>
+              <code>
+App.initialize(router);
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-routing-backbone" class="step" data-x="37000" data-y="7000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Routing</h1>
+            <pre>
+              <h3 class='framework-name'>Backbone</h3>
+              <code>
+# app/assets/javascripts/app/routes
+App.Router = class Router extends Backbone.Router
+  routes:
+    "products"     : "index"
+    "products/:id" : "show"
+    ":category"    : "index"
+    ""             : "index"
+
+  index: (params) ->
+    App.main.products.index.show(params)
+
+  show: (params) ->
+    App.main.products.show.show(params)
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-routing-why-srp-example" class="step" data-x="37000" data-y="7000" data-z="100" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <pre>
+              <code>
+$ ->
+  $('body').on "click", "a.navigable", (e) ->
+    App.router.navigate e.currentTarget.pathname, 
+        trigger: true
+    e.preventDefault()
+              </code>
+              <code>
+&lt;a href='/products/123' class='navigable'&gt;Herringbone Blazer&lt;/a&gt;
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-routing-spine" class="step" data-x="37000" data-y="10000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Routing</h1>
+            <pre>
+              <h3 class='framework-name'>Spine</h3>
+              <code>
+# app/assets/javascripts/controllers/main
+App.Main = class Main extends Spine.Controller
+  constructor: ->
+    routes:
+      "/products"     :    @products.index.show
+      "/products/:id" :    @products.show.show
+      "/:category"    :    @products.index.show
+      "/"             :    @products.index.show
+              </code>
+            </pre>
+            <pre>
+              <code>
+# app/assets/javascripts/controllers/products/products
+App.Controllers.Products.Section = class Products extends Spine.Stack
+  constructor: ->
+    @controllers = 
+      index: App.Controllers.Products.Index.Main
+      show:  App.Controllers.Products.Show.Main
+    super
+              </code>
+            </pre>
+            <ul>
+              <li>Any Controller or Stack can route</li>
+            </ul>
+          </div>
+
+<!-- 
+
           <div id="demo-routing-state-machine" class="step" data-x="37000" data-y="16000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h1>But it does have a state machine</h1>
             <pre>
@@ -1406,7 +1512,7 @@ App.manager = Ember.StateManager.create
 
               </code>
             </pre>
-          </div>
+          </div> -->
 
         </section>
 <!-- 
@@ -1470,9 +1576,9 @@ show: (params) =>
         </div>
 
         <div id="demo-cart-backbone-cart" class="step" data-x="47000" data-y="4000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-          <h1>Cart</h1>
-          <h2>Backbone</h2>
+          <h2>Cart</h2>
           <pre>
+            <h3 class='framework-name'>Backbone</h3>
             <code>
 # app/assets/javascripts/app/collections/cart
 App.Collections.Cart = class Cart extends Backbone.Collection
@@ -1481,87 +1587,89 @@ App.Collections.Cart = class Cart extends Backbone.Collection
         </div>
 
         <div id="demo-cart-backbone-view" class="step" data-x="47000" data-y="7000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-          <h1>Cart</h1>
-          <h2>Backbone</h2>
+          <h2>Cart</h2>
           <pre>
+            <h3 class='framework-name'>Backbone</h3>
             <code>
 # app/assets/javascripts/app/views/products/show/detail
 App.Views.Products.Show.Detail = class Detail extends Backbone.View
 
-events: 
-"click button": "addToCart"
+  events: 
+    "click button": "addToCart"
 
-initialize: ->
-window.cart.on "add", @handleButtonState
+  initialize: ->
+    window.cart.on "add", @handleButtonState
 
-addToCart: (e) =>
-window.cart.add @model
+  addToCart: (e) =>
+    window.cart.add @model
 
-handleButtonState: =>
-if window.cart.contains @model.id
-  @$("button").attr "disabled", "disabled"
-  @$("button").addClass "disabled"
-else
-  @$("button").removeAttr "disabled"
-  @$("button").removeClass "disabled"
+  handleButtonState: =>
+    if window.cart.contains @model.id
+      @$("button").attr "disabled", "disabled"
+      @$("button").addClass "disabled"
+      @$("button").text "In cart"
+    else
+      @$("button").removeAttr "disabled"
+      @$("button").removeClass "disabled"
+      @$("button").text "Add to cart"
             </code>
           </pre>
         </div>
 
 
         <div id="demo-cart-ember-template" class="step" data-x="47000" data-y="10000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-          <h1>Cart</h1>
-          <h2>Ember</h2>
+          <h2>Cart</h2>
           <pre>
+            <h3 class='framework-name'>Ember</h3>
             <code>
 &lt;div class='action'&gt;
-&lt;button {{bindAttr class=&quot;inCart&quot;}} 
-        {{action &quot;addToCart&quot;}} 
-        {{bindAttr disabled=&quot;inCart&quot;}}&gt;
-     {{cartStatus}}
-&lt;/button&gt;
+  &lt;button {{bindAttr class=&quot;inCart&quot;}} 
+          {{action &quot;addToCart&quot;}} 
+          {{bindAttr disabled=&quot;inCart&quot;}}&gt;
+       {{cartStatus}}
+  &lt;/button&gt;
 &lt;/div&gt;
             </code>
           </pre>
         </div>
 
         <div id="demo-cart-ember" class="step" data-x="47000" data-y="13000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-          <h1>Cart</h1>
-          <h2>Ember</h2>
+          <h2>Cart</h2>
           <pre>
+            <h3 class='framework-name'>Ember</h3>
             <code>
 # app/assets/javascripts/app/controllers/products
 App.ProductController = Ember.Object.extend
-content: null
+  content: null
 
-addToCart: ->
-  if @canAdd()
-    @cart.addObject(@get("content"))
+  addToCart: ->
+    if @canAdd()
+      @cart.addObject(@get("content"))
 
-canAdd: -> 
-  @get("content") and !@inCart
+  canAdd: -> 
+    @get("content") and !@inCart
 
-inCart: (-> @cart.contains(@get("content"))).property()
+  inCart: (-> @cart.contains(@get("content"))).property()
             </code>
           </pre>
         </div>
 
         <div id="demo-cart-ember-view" class="step" data-x="47000" data-y="16000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-          <h1>Cart</h1>
-          <h2>Ember</h2>
+          <h2>Cart</h2>
           <pre>
+            <h3 class='framework-name'>Ember</h3>
             <code>
 # app/assets/javascripts/app/views/products/detail
 App.DetailView = Ember.View.extend
-contentBinding: "contentController.content"
-inCartBinding: "contentController.inCart"
+  contentBinding: "contentController.content"
+  inCartBinding: "contentController.inCart"
 
-addToCart: (e) ->
-  @contentController.addToCart()
-  e.preventDefault()
+  addToCart: (e) ->
+    @contentController.addToCart()
+    e.preventDefault()
 
-cartStatus: (-> if @get("inCart") then "In Cart" else "Add To Cart").property("inCart")
-...
+  cartStatus: (-> if @get("inCart") then "In cart" else "Add to cart").property("inCart")
+  ...
             </code>
           </pre>
         </div>
@@ -1857,7 +1965,7 @@ setContent: (data) ->
           <div id="grading-backbone-structure" class="step" data-x="50000" data-y="3000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h2 class='framework-name'>Backbone</h2>
             <h1 class='question'>Can I build a big app?</h1>
-            <div class='answer'><p>sorta</p></div>
+            <div class='answer'><p>Sorta</p></div>
             <ul><li>Lots of boilerplate</li><li>Structure is ad-hoc</li></ul>
           </div>
 
@@ -1874,6 +1982,12 @@ setContent: (data) ->
             <div class='answer'><p>Probably</p></div>
             <ul><li>No mysteries</li><li>Very large apps might get cumbersome</li></ul>
           </div>
+
+          <div id="grading-backbone-use" class="step" data-x="50000" data-y="6000" data-z="9000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2 class='framework-name'>Backbone</h2>
+            <h1>I use it for</h1>
+            <ul><li>Widgets</li><li>Small-to-medium apps</li><li>Anything off the beaten path</li></ul>
+          </div>
         </section>
 
 
@@ -1888,21 +2002,53 @@ setContent: (data) ->
           <div id="grading-spine-explain" class="step" data-x="56000" data-y="4000" data-z="3000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h2 class='framework-name'>Spine</h2>
             <h1 class='question'>Can I explain it to someone else?</h1>
-            <div class='answer'><p>Yes</p></div>
-            <ul><li>Very simple</li><li>Large, helpful community</li></ul>
+            <div class='answer'><p>Mostly</p></div>
+            <ul><li>Backbone users get it</li><li>Quirky</li></ul>
           </div>
 
           <div id="grading-spine-spend-money" class="step" data-x="56000" data-y="5000" data-z="6000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h2 class='framework-name'>Spine</h2>
             <h1 class='question'>Should I spend my client's money?</h1>
-            <div class='answer'><p>Probably</p></div>
-            <ul><li>No mysteries</li><li>Very large apps might get cumbersome</li></ul>
+            <div class='answer'><p>Yes</p></div>
+            <ul><li>Growth is simple</li><li></li></ul>
+          </div>
+
+          <div id="grading-spine-use" class="step" data-x="56000" data-y="6000" data-z="9000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2 class='framework-name'>Spine</h2>
+            <h1>I use it for</h1>
+            <ul><li>General purpose apps</li><li>Resource/CRUD-style apps</li><li></li></ul>
           </div>
         </section>
 
 
+        <section id='grading-ember'>
+          <div id="grading-ember-structure" class="step" data-x="62000" data-y="3000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2 class='framework-name'>Ember</h2>
+            <h1 class='question'>Can I build a big app?</h1>
+            <div class='answer'><p>I'm Told "Yes"</p></div>
+            <ul><li>App structure is coming together</li><li>New router is a nice touch</li></ul>
+          </div>
 
+          <div id="grading-ember-explain" class="step" data-x="62000" data-y="4000" data-z="3000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2 class='framework-name'>Ember</h2>
+            <h1 class='question'>Can I explain it to someone else?</h1>
+            <div class='answer'><p>Evidently Not</p></div>
+            <ul><li>I usually have no idea what's going on</li><li>Documentation is still weak</li></ul>
+          </div>
 
+          <div id="grading-ember-spend-money" class="step" data-x="62000" data-y="5000" data-z="6000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2 class='framework-name'>Ember</h2>
+            <h1 class='question'>Should I spend my client's money?</h1>
+            <div class='answer'><p>Not Yet</p></div>
+            <ul><li>Uncertainty abounds</li><li></li></ul>
+          </div>
+
+          <div id="grading-ember-use" class="step" data-x="62000" data-y="6000" data-z="9000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2 class='framework-name'>Ember</h2>
+            <h1>I use it for</h1>
+            <ul><li>Generating frustration</li><li></li><li></li></ul>
+          </div>          
+        </section>
 
       </section>
 
