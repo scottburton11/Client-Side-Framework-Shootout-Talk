@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">    
     <script src="javascripts/app.js" type="text/javascript"></script>
   </head>
-  <body class='grey'>
+  <body class='orange_peel'>
     <div id='impress' class='impress-not-supported'>
   
       <section id="intro">
@@ -192,7 +192,7 @@
 
       </section>
 
-      <section id="client-side-mvc">
+<!--       <section id="client-side-mvc">
 
         <div id="client-side-purpose" class="step" data-x="3000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <h1>Structure</h1>
@@ -204,18 +204,6 @@
             <li>Familiar</li>
             <li>Plays well with resources</li>
             <li>Well-organized</li>
-          </ul>
-        </div>
-
-        <div id="delegate" class="step" data-x="3500" data-y="5000" data-z="0" data-rotate="0" data-scale="3">
-          <h1>Delegate teh V</h1>
-        </div>
-
-        <div id="delegate-bullets" class="step" data-x="3500" data-y="7000" data-z="2000" data-rotate-x="0" data-scale="2">
-          <h2>server-side views</h2>
-          <ul>
-            <li>are expensive</li>
-            <li>sort of crazy</li>
           </ul>
         </div>
 
@@ -245,24 +233,18 @@
           </ul>
         </div>
 
-        <div id="unexpected-upsides-monolithic" class="step" data-x="3500" data-y="13000" data-z="2000" data-rotate-x="180" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-          <h1>Ween yourself off the monolith</h1>
-        </div>
+      </section> -->
 
-        <div id="unexpected-upslides-monolithic" class="step" data-x="3500" data-y="15000" data-z="3000" data-rotate-x="270" data-rotate-y="0" data-rotate-z="0" data-scale="3"><h1>Better subjectives</h1>
-          <ul>
-            <li>Faster apparent loading</li>
-            <li>Browser is native-ish</li>
-          </ul>
-        </div>
-      </section>
 
+      <!-- 
       <section id="tips">
         <div id="denormalize" class="step" data-x="6000" data-y="-1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <h1>Denormalize</h1>
         </div>
 
-        <div id="denormalize-one-tweet" class="step" data-x="-6000" data-y="-9000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+        <div id="denormalize-one-tweet-top" class="step" data-x="-6000" data-y="-10000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3"></div>
+
+        <div id="denormalize-one-tweet" class="step nofade" data-x="-6000" data-y="-9000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <pre>
             <code class='javascript small'>
 
@@ -374,6 +356,8 @@
           </pre>
         </div>
 
+        <div id="denormalize-one-tweet-bottom" class="step" data-x="-6000" data-y="-8000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3"></div>
+
         <div id="denormalize-has-many" class="step" data-x="6000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <ul class='mono'>
             <li>has_many</li>
@@ -384,31 +368,31 @@
           </ul>
           <pre>
             <code>
-      collection @products
-        attributes :id, :name, :description, :sku, :category
+collection @engagements
+attributes :id, :first_name, :middle_name, :last_name, :masked_ssn, :email
 
-      node :image_url do |p|
-        p.image_file_path
-      end
+node :address do
+  attributes :street_1, :street_2, :city, :state, :postal_code
+end
 
-      node :price do |p|
-        p.formatted_price
-      end
+node :files do
+  attributes :id, :description, :category, :engagement_id, :created_at
 
-      node :designer_name do |p|
-        p.designer.name
-      end
+  code :file_name do |e|
+    e.file_name
+  end
+end
             </code>
           </pre>
         </div>
 
-<!--         <div id="denormalize-careful-with-through" class="step" data-x="6000" data-y="3000" data-z="4000" data-rotate-x="-90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+         <div id="denormalize-careful-with-through" class="step" data-x="6000" data-y="3000" data-z="4000" data-rotate-x="-90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <h2>careful with <span class='mono'>:through =></span></h2>
           <ul>
             <li>respect other owners</li>
             <li></li>
           </ul>
-        </div> -->
+        </div> 
 
         <div id="bootstrap" class="step" data-x="6000" data-y="5000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <h1>Bootstrap common assets</h1>
@@ -436,17 +420,13 @@
         </div>
 
         <div id="bootstrap-data-depends" class="step" data-x="6000" data-y="11000" data-z="-1000" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-          <h2>it depends</h2>
-          <ul>
-            <li>Is it public?</li>
-            <li>Can you easily cache the response?</li>
-          </ul>
+          <h2>it depends on who you ask</h2>
         </div>
       
         <div id="empty-templates" class="step" data-x="6000" data-y="14000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-          <h1>Empty templates</h1>
+          <h1>Empty template</h1>
           <pre><code class='ruby'>
-            # app/views/products/show.html.haml
+            # app/views/products/show.html.erb
 
 
 
@@ -458,47 +438,76 @@
           </code></pre>
         </div>
 
+        <div id="bootstrapped-templates" class="step" data-x="6000" data-y="17000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Bootstrapped template</h1>
+          <pre><code class=''>
+            # app/views/products/show.html.erb
+
+            &lt;script type='text/javascript' data-type='project'&gt;
+              window.app.products = <%= escape_javascript(@products.to_json) %>
+            &lt;/script&gt;
+
+          </code></pre>
+        </div>
+
         <div id="respond-to-every-route" class="step" data-x="6000" data-y="15500" data-z="3000" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <h1>Respond to every route with HTML</h1>
           <pre>
-            <code class='medium'>
-BumHed::Application.routes.draw do    
-  resource :profile, :only => [:show, :edit, :update], :controller => :profile do
-    match "/portrait/edit", :to => "profile#edit"
-  end
-
-  resources :engagements, :except => [:destroy] do
-    collection do
-      post "search"
-    end
-    resources :memberships, :only => [:create, :index]
-    resources :patient_files, :only => [:new, :create] do
-      collection do
-        post "multiple", :to => "patient_files#create_multiple"
-      end
-      member do
-        get "download", :to => "patient_files/downloads#show"
-      end
-    end
-    member do
-      post "attachments", :to => "patient_files/attachments#create", :as => :associate_engagement_patient_files
-    end
-  end
-
-  resources :transfers, :only => [:index, :show, :create]
-  put "transfers/:id/accept", :to => "transfers#update"
-
-  get "patients", :to => "engagements#index"
-  get "patients/new", :to => "engagements#new"
-  get "patients/:id/edit", :to => "engagements#edit"
-  get "patients/:id", :to => "engagements#show"
-  get "messages", :to => "message_receipts#index"
-  get "inbox", :to => "message_receipts#index", :as => :inbox
+            <code>
+class ProductsController < ApplicationController
+  respond_to :json, :html
+  ....
 
             </code>
           </pre>
         </div>
 
+      </section>
+
+-->
+
+      <section id="criteria">
+
+        <div id="criteria-over-it" class="step" data-x="-3000" data-y="-1000" data-z="12000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>We're sorta over it already</h1>
+        </div>
+
+        <div id="criteria-all-frameworks" class="step" data-x="-3000" data-y="-3000" data-z="15000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>DOM management</h1>
+          <h1>State management</h1>
+        </div> 
+
+        <div id="criteria-hard-questions" class="step" data-x="-3000" data-y="-5000" data-z="20000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Hard Questions:</h1>
+          <ul><li>Can I write a large app?</li><li>Can I show someone else how it works?</li><li>Should I spend my client's money on it?</li></ul>
+        </div>
+
+        <div id="criteria-large-app" class="step" data-x="-3000" data-y="-7000" data-z="25000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Can I write a large app?</h1>
+          <ul>
+            <li>Is it simple to structure an app?</li>
+            <li>Is the cost of adding features flat?</li>
+          </ul>
+        </div>
+
+        <div id="criteria-transitioning" class="step" data-x="-3000" data-y="-9000" data-z="30000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Can I show someone else <br/>how it works?</h1>
+          <h2>How fast can I:</h2>
+          <ul>
+            <li>onboard another developer?</li>
+            <li>onboard a client's team?</li>
+            <li>learn it myself?</li>
+          </ul>
+        </div>
+
+        <div id="criteria-spend-money" class="step" data-x="-3000" data-y="-11000" data-z="35000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Should I spend my client's <br/>money on it?</h1>
+          <ul>
+            <li>Are changes expensive?</li>
+            <li>How much risk does it introduce to my schedule?</li>
+            <li>Does it cause more problems than it solves?</li>
+          </ul>
+        </div>
       </section>
 
       <section id="framework-philosophies">
@@ -508,25 +517,17 @@ BumHed::Application.routes.draw do
             <h1>Backbone.js</h1>
           </div>
 
-          <div id="backbone-facts" class="step" data-x="8500" data-y="3000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <h1>Backbone.js</h1>
-            <ul>
-              <li>Jeremy Ashkenas - DocumentCloud</li>
-              <li>Widely used</li>
-            </ul>
-          </div>
-
           <div id="backbone-points" class="step" data-x="8500" data-y="6000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h1>Backbone.js</h1>
             <ul>
               <li>Flexible</li>
               <li>Lightweight</li>
               <li>Few dependencies</li>
-              <li>Arbitrary collections</li>
-              <li>Rendering is up to you</li>
+              <li>Good docs</li>
+              <li>Readable source</li>
             </ul>
           </div>
-
+<!-- 
           <div id="backbone-components-views" class="step" data-x="8500" data-y="8000" data-z="5000" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h1>Backbone.js</h1>
             <h2>Views</h2>
@@ -541,7 +542,6 @@ BumHed::Application.routes.draw do
             <h2>Models</h2>
             <ul>
               <li>Key-value storage</li>
-              <li>Change management</li>
               <li>Persistence</li>
             </ul>
           </div>
@@ -550,6 +550,7 @@ BumHed::Application.routes.draw do
             <h1>Backbone.js</h1>
             <h2>Collections</h2>
             <ul>
+              <li>Arbitrary collections</li>
               <li>Array proxy</li>
               <li>_.</li>
             </ul>
@@ -561,10 +562,9 @@ BumHed::Application.routes.draw do
             <ul>
               <li>General-purpose abstraction</li>
               <li>Lightweight coupling across layers</li>
-              <li>Collections, Models, Properties, Custom</li>
             </ul>
           </div>
-
+ -->
         </section>
 
         <section id="spine">
@@ -572,32 +572,24 @@ BumHed::Application.routes.draw do
             <h1>Spine.js</h1>
           </div>
 
-          <div id="spine-about" class="step" data-x="12000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <h1>Spine.js</h1>
-            <ul>
-              <li>Alex McCaw</li>
-              <li>Inspired by Backbone</li>
-            </ul>
-          </div>
-
           <div id="spine-points" class="step" data-x="12000" data-y="3000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h1>Spine.js</h1>
             <ul>
-              <li>Sugar for common patterns</li>
-              <li>Never wait for the server</li>
-              <li>Manage everything</li>
-              <li>Flexible rendering</li>
+              <li>Simplifies common patterns</li>
+              <li>Never block the UI</li>
+              <li>Wants to manage your resources</li>
               <li>Prototypical</li>
+              <li>Excellent docs</li>
+              <li>Readable source</li>
             </ul>
           </div>
 
-          <div id="spine-components-controller" class="step" data-x="12000" data-y="6000" data-z="0" data-rotate-x="-60" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+<!--           <div id="spine-components-controller" class="step" data-x="12000" data-y="6000" data-z="0" data-rotate-x="-60" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h1>Spine.js</h1>
             <h2>Controllers</h2>
             <ul>
               <li>Rendering</li>
-              <li>Event handling</li>
-              <li>Application Heirarchy</li>
+              <li>DOM event handling</li>
               <li>Routing</li>
             </ul>
           </div>
@@ -607,9 +599,8 @@ BumHed::Application.routes.draw do
             <h2>Models</h2>
             <ul>
               <li>Key-value storage</li>
-              <li>(weak) Collection management</li>
-              <li>ActiveRecord-style</li>
-              <li>Simple Association Support</li>
+              <li>(fixed) Collection management</li>
+              <li>Support for associations</li>
             </ul>
           </div>
 
@@ -624,16 +615,31 @@ BumHed::Application.routes.draw do
             </ul>
           </div>
 
+          <div id="spine-components-stacks-example" class="step" data-x="12000" data-y="12000" data-z="0" data-rotate-x="-90" data-rotate-y="0" data-rotate-z="0" data-scale="2">
+            <pre>
+              <code>
+App.Controllers.Products.Section = class Products extends Spine.Stack
+
+  @controllers = 
+    index: App.Controllers.Products.Index.Main
+    show:  App.Controllers.Products.Show.Main
+
+  render: ->
+    @index.render()
+    @                
+              </code>
+            </pre>
+          </div>
+
           <div id="spine-components-events" class="step" data-x="12000" data-y="15000" data-z="0" data-rotate-x="-240" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h1>Spine.js</h1>
             <h2>Events</h2>
             <ul>
               <li>General-purpose abstraction</li>
               <li>Lightweight coupling across layers</li>
-              <li>Models, Custom</li>
               <li>Questionable implementation</li>
             </ul>
-          </div>
+          </div> -->
         </section>
 
         <section id="ember">
@@ -642,27 +648,18 @@ BumHed::Application.routes.draw do
             <h1>Ember.js</h1>
           </div>
 
-          <div id="ember-about" class="step" data-x="15500" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <h1>Ember.js</h1>
-            <ul>
-              <li>Tom Dale</li>
-              <li>Peter Wagenet</li>
-              <li>Yehuda Katz</li>
-              <li>a dozen others</li>
-              <li>Formerly Amber.js (formerly Sproutcore 2)</li>
-            </ul>
-          </div>
-
           <div id="ember-points" class="step" data-x="15500" data-y="3000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h1>Ember.js</h1>
             <ul>
               <li>"Eliminate Boilerplate"</li>
+              <li>Declarative</li>
               <li>Highly opinionated</li>
               <li>Don't manage the DOM yourself</li>
+              <li>Documentation is StackOverflow &amp; gist.github.com</li>
             </ul>
           </div>
 
-          <div id="ember-components-bindings" class="step" data-x="15500" data-y="5000" data-z="2000" data-rotate-x="60" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+<!--           <div id="ember-components-bindings" class="step" data-x="15500" data-y="5000" data-z="2000" data-rotate-x="60" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h1>Ember.js</h1>
             <h2>Property bindings</h2>
 
@@ -672,7 +669,7 @@ App.pinyo = Ember.Object.create({hoobatz: "maguro"})
 App.panko = Ember.Object.create({hoobatzBinding: "App.pinyo.hoobatz"})
 
 App.panko.get("hoobatz")
-"maguro"
+-> "maguro"
               </code>
             </pre>
             <ul>
@@ -700,9 +697,9 @@ itemsInCart: (-> @get("content").length ).property()
             <h1>Ember.js</h1>
             <h2>Auto-updating views</h2>
             <ul>
-              <li>Views react to data changes</li>
+              <li>Views react to property changes</li>
               <li>No calls to <code>render()</code></li>
-              <li>Per-property - minimize reflows</li>
+              <li>Per-property - eliminates reflows</li>
               <li><strong>Only</strong> Handlebars.js</li>
               <li>DOM madness</li>
             </ul>
@@ -715,10 +712,10 @@ itemsInCart: (-> @get("content").length ).property()
               <li>Object</li>
               <li>View</li>
               <li>ArrayController</li>
-              <li>Set</li>
+              <li>State</li>
               <li>...</li>
             </ul>
-          </div>
+          </div> -->
         </section>
       </section>
 
@@ -731,13 +728,9 @@ itemsInCart: (-> @get("content").length ).property()
           <h1>...but which one is for me?</h1>
         </div>
 
-        <div id="demo-intro" class="step" data-x="21000" data-y="5000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-          <h1>I Wroted A Demos</h1>
-        </div>
-
         <section id="demo-constraints">
           <div id="demo-constraints-title" class="step" data-x="24000" data-y="-2000" data-z="0" data-rotate-x="0" data-rotate-y="" data-rotate-z="15" data-scale="3">
-            <h1>Constraints</h1>
+            <h1>Demo Criteria</h1>
           </div>
 
           <div id="demo-constraints-one-page" class="step" data-x="24000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="15" data-rotate-z="30" data-scale="3">
@@ -760,8 +753,8 @@ itemsInCart: (-> @get("content").length ).property()
             <h1>Features</h1>
             <ul>
               <li>List &amp; Detail views</li>
-              <li>Infinite scroll</li>
-              <li>URL routing</li>
+              <li>Scrolling pagination</li>
+              <li>State management with URLs</li>
             </ul>
           </div>
 
@@ -783,7 +776,7 @@ itemsInCart: (-> @get("content").length ).property()
           <div id="demo-rendering-views-responsibility" class="step" data-x="27000" data-y="6000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h2>You are responsible for</h2>
             <ul>
-              <li>where it goes</li>
+              <li>where to stick it</li>
               <li>cleaning up after it</li>
             </ul>
           </div>
@@ -792,9 +785,7 @@ itemsInCart: (-> @get("content").length ).property()
             <h1 class='mono'>@el | @$el</h1>
             <ul>
               <li>jQuery-wrapped element selector</li>
-              <li><code>div</code> by default</li>
-              <li>unattached</li>
-              <li>optionally set to an in-DOM element</li>
+              <li>unattached from the DOM</li>
             </ul>
             
           </div>
@@ -810,7 +801,7 @@ itemsInCart: (-> @get("content").length ).property()
             </ul>
           </div>
 
-          <div id="demo-rendering-views-spine-elements-and-events" class="step" data-x="27000" data-y="15000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+<!--           <div id="demo-rendering-views-spine-elements-and-events" class="step" data-x="27000" data-y="15000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h1>Spine <code>elements</code> &amp; <code>events</code></h1>
             <pre>
               <code>
@@ -827,7 +818,7 @@ itemsInCart: (-> @get("content").length ).property()
               <li><code>events</code> binds (or delegates) DOM events</li>
             </ul>
           </div>
-
+ -->
           <section id="demo-list-item-view">
             <section id="demo-list-item-view-backbone" class='backbone'>
               <div id="demo-list-item-backbone-template" class="step" data-x="30000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
@@ -848,10 +839,11 @@ itemsInCart: (-> @get("content").length ).property()
 
 
 
-              <div id="demo-list-item-backbone-view" class="step" data-x="30000" data-y="3000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-                <h1>List Item</h1>
+              <div id="demo-list-item-backbone-view" class="step" data-x="30000" data-y="6000" data-z="0" data-rotate-x="15" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+                <h1>Backbone</h1>
+                <h2>List Item</h2>
                 <pre>
-                  <code>
+                  <code >
   # app/assets/javascripts/app/views/products/index/item
   App.Views.Products.Index.Item = class Item extends Backbone.View
 
@@ -873,19 +865,15 @@ itemsInCart: (-> @get("content").length ).property()
       router.navigate "/products/#{@model.get('id')}",
         trigger: true
       e.preventDefault()
-
-    remove: =>
-      @$el.remove()
                   </code>
                 </pre>
               </div>
 
-
-              <div id="demo-list-itme-view-spine-list-item" class="step" data-x="30000" data-y="7000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-                <h1>List Item</h1>
-
+              <div id="demo-list-item-spine-view" class="step" data-x="30000" data-y="6000" data-z="5000" data-rotate-x="15" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+                <h1>Spine</h1>
+                <h2>List Item</h2>
                 <pre>
-                  <code>
+                  <code >
   # app/assets/javascripts/app/controllers/products/index/item
   App.Controllers.Products.Index.Item = class Item extends Spine.Controller
 
@@ -907,11 +895,6 @@ itemsInCart: (-> @get("content").length ).property()
     navigateToItem: (e) ->
       @navigate(@item.url())
       e.preventDefault()
-
-    release: =>
-      @item.unbind "change", @render
-      super
-
                   </code>
                 </pre>
               </div>
@@ -920,7 +903,7 @@ itemsInCart: (-> @get("content").length ).property()
 
           <section id="demo-list-view">
             <section id="demo-list-view-backbone" class="backbone">
-              <div id="demo-list-view-backbone-list" class="step" data-x="30000" data-y="10000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+              <div id="demo-list-view-backbone-list" class="step" data-x="30000" data-y="10000" data-z="0" data-rotate-x="30" data-rotate-y="0" data-rotate-z="0" data-scale="3">
                 <h1>List</h1>
 
                 <pre>
@@ -1167,277 +1150,12 @@ $ ->
         </section>
 
 
-        <section id="demo-models">
-          <section id='demo-models-backbone'>
-            <div id="demo-models-backbone-intro" class="step" data-x="34000" data-y="0" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>Models &amp; Collections</h1>
-              <h2>Backbone</h2>
-            </div>
 
-            <div id="demo-models-backbone-product-model" class="step" data-x="34000" data-y="2000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>Model</h1>
-              <pre>
-                <code>
-# app/assets/javascripts/app/models/product
-App.Models.Product = class Product extends Backbone.Model
-                </code>
-              </pre>
-            </div>
 
-            <div id="demo-models-duplicate-errrr" class="step" data-x="34000" data-y="5000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>errrrr..</h1>
-              <pre>
-                <code class='medium'>
-window.Patient = class Patient extends Spine.Model
-  ...                  
-  @isValidSSN: (value, element) ->
-    re = /^([0-6]\d{2}|7[0-6]\d|77[0-2])([ \-]?)(\d{2})\2(\d{4})$/
-    temp = value.replace(/-|\s/g, "")
-    return false unless re.test(temp) 
-    return false if (temp.substring(0, 3) == "000") or (temp.substring(3, 5) == "00") or (temp.substring(5, 9) == "0000")
-    return true
-    
-  @isValidBirthdate: (value, element) ->
-    date = Date.parseExact(value, ["M/d/yyyy", "M-d-yyyy"])
-    return false unless date
-    dateIsTodayOrEarlier = (Date.today().compareTo(date) >= 0)
-    return false unless dateIsTodayOrEarlier
-    return true
-  
-  validate: ->
-    ssn = @ssn_entry || @formatted_ssn || @ssn
-    birthdate = @birthdate_entry || @birthdate
-    errors = {}
-    ssn_errors = []
-    birthdate_errors = []
+        <!-- App Setup -->
 
-    if @newRecord
-      ssn_errors.push("must be an SSN") unless ssn and @constructor.isValidSSN(ssn)
-      birthdate_errors.push("must be a valid date") unless birthdate and @constructor.isValidBirthdate(birthdate)
 
-    errors.ssn = ssn_errors if ssn_errors.length > 0
-    errors.birthdate = birthdate_errors if birthdate_errors.length > 0
-    if $.isEmptyObject(errors) then return null else return errors
-  
-  parseBirthdateEntry: ->
-    @birthdate = Date.parse(@birthdate_entry) if @birthdate_entry?
 
-  parseSsnEntry: ->
-    if @ssn_entry?
-      @ssn = @ssn_entry.replace(/-/g, "")
-      @masked_ssn = "XXX-XX-" + @ssn_entry.slice(-4)
-      @formatted_ssn = @ssn.slice(0, 3) + "-" + @ssn.slice(3,5) + "-" + @ssn.slice(5,9)
-
-  full_name: ->
-    [@first_name, @middle_name, @last_name].join(" ").replace(/\s{2}/g, " ")
-                </code>
-              </pre>
-            </div>
-
-            <div id="demo-models-duplicate-logic" class="step" data-x="34000" data-y="8000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>You'll end up duplicating</h1>
-              <ul>
-                <li>Validators</li>
-                <li>Virtual accessors</li>
-                <li>View-oriented helpers</li>
-                <li>Basically all of ActiveSupport</li>
-              </ul>
-            </div>
-
-            <div id="demo-models-backbone-persistence-adapter" class="step" data-x="34000" data-y="11000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>Model Persistence</h1>
-              <h2>Backbone &amp; Spine REST</h2>
-              <ul class='api-doc'>
-                <li>
-                  <dd>fetch()</dd>
-                  <dt>GET /products/123</dt>
-                </li>
-                <li>
-                  <dd>create()</dd>
-                  <dt>POST /products</dt>
-                </li>
-                <li>
-                  <dd>save()</dd>
-                  <dt>POST /products</dt>
-                  <dt>PUT  /products/123</dt>
-                </li>
-                <li>
-                  <dd>destroy()</dd>
-                  <dt>DELETE /products/123</dt>
-                </li>
-              </ul>
-            </div>
-            <div id="demo-collection-backbone-persistence" class="step" data-x="34000" data-y="14000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>Collection Persistence</h1>
-              <h2>Backbone &amp; Spine REST</h2>
-              <ul class='api-doc'>
-                <li>
-                  <dd>fetch()</dd>
-                  <dt>GET /products</dt>
-                </li>
-              </ul>
-            </div>
-
-            <div id="demo-collection-backbone-persistence-ajax-options" class="step" data-x="34000" data-y="17000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>Bacbone Custom AJAX</h1>
-              <h2>jQuery syntax</h2>
-              <pre>
-                <code>
-# app/assets/javascripts/app/collections/products
-App.Collections.Products = class Products extends Backbone.Collection
-  url: "/products"
-
-  nextPage: (options) =>
-    options = options or {}
-    options = $.extend {}, {add: true}, options
-    @fetch
-      data: 
-        page:     @next_page
-        per_page: @calculatePerPage()
-        category: @category
-      add: options.add
-
-  parse: (data, xhr) ->
-    @handlePaging(xhr)
-    super data, xhr
-                </code>
-              </pre>
-            </div>
-
-            <div id="demo-collection-persistence-paging" class="step" data-x="34000" data-y="17000" data-z="1500" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>Some conventions we break</h1>
-              <pre>
-                <code>
-config.include_json_root = false
-                </code>
-              </pre>
-              <pre>
-                <code>
-X-Pagination:page: 2, per_page: 20, next_page: 3, total_pages: 37
-                </code>
-              </pre>
-            </div>
-
-            <div id="demo-collection-persistence-root-in-json" class="step" data-x="34000" data-y="30000" data-z="0" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>Some conventions are suck</h1>
-              <pre>
-                <code>
-wrap_parameters Engagement, 
-  :include => Engagement.encryptable_attributes + [:birthdate_entry, :ssn_entry]
-                </code>
-              </pre>
-            </div>
-
-            <div id="demo-collection-spine-persistence-ajax-options" class="step" data-x="34000" data-y="20000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>Spine Custom AJAX</h1>
-              <h2>jQuery syntax</h2>
-              <pre>
-                <code>
-# app/assets/javascripts/app/models/product
-App.Models.Product = class Product extends Spine.Model
-  @configure "Product", "id", "name", "designer_name", "price", "image_url", "description", "category"
-  @extend Spine.Model.Ajax
-
-  ...
-
-  @nextPage: (callback) ->
-    @one "paginated", @handlePaging
-    @one "paginated", callback if typeof callback is "function"
-    Product.fetch 
-      data:
-        page:     Product.next_page
-        per_page: Product.calculatePerPage()
-        category: Product.category
-      processData: true
-      success: (data, status, xhr) =>
-        @trigger("paginated", data, status, xhr)
-  
-                </code>
-              </pre>
-            </div>
-
-          </section>
-
-          <section id="demo-models-controllers-ember">
-            <div id="demo-models-controllers-ember-object" class="step" data-x="34000" data-y="23000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>Ember Models</h1>
-              <pre>
-                <code>
-# app/assets/javascripts/app/models/product
-App.Product = Ember.Object.extend
-
-  title: (-> 
-    @get("designer_name") + ": " + @get("name")
-    ).property("designer_name", "name")
-                </code>
-              </pre>
-              <h2>Are really just objects</h2>
-            </div>
-
-            <div id="demo-models-controllers-ember-controller-just-object" class="step" data-x="34000" data-y="27000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>Ember Controllers</h1>
-              <pre>
-                <code>
-# app/assets/javascripts/app/controllers/item
-App.ProductController = Ember.Object.extend
-  content: null
-
-  addToCart: ->
-    if @canAdd()
-      @cart.addObject(@get("content"))
-
-  canAdd: -> 
-    @get("content") and !@inCart
-
-  inCart: Ember.computed(-> @cart.contains(@get("content"))).property("content")
-                </code>
-              </pre>
-              <pre>
-                <code>
-# app/assets/javascripts/app/index
-->
-  @detailController = App.ProductController.create
-    content: null
-    cart: @cart
-                </code>
-              </pre>
-              <h2>Are also just objects</h2>
-            </div>
-
-            <div id="demo-models-controllers-ember-controller-ajax" class="step" data-x="34000" data-y="30000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-              <h1>Ember Controllers</h1>
-              <pre>
-                <code>
-# app/assets/javascripts/app/controllers/items
-App.ItemsController = Ember.ArrayController.extend
-  ...
-  getItems: ->
-    self = @
-    $.ajax
-      url: "/products"
-      type: "GET"
-      contentType: "application/json"
-      dataType: "json"
-      data: 
-        page: @.get("next_page")
-        per_page: @get("per_page")
-        category: @get("category")
-      success: (data, status, xhr) ->
-        self.setContent(data)
-        self.handlePaging(xhr)
-
-  setContent: (data) ->
-    @addObject(App.Product.create(item)) for item in data
-
-  ....
-                </code>
-              </pre>
-              <h2>except for the special ones</h2>
-            </div>
-
-          </section>
-
-        </section>
 
         <section id="demo-app">
           <div id="demo-app-setup" class="step" data-x="43000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
@@ -1520,110 +1238,11 @@ App.MainController = Ember.Object.extend
           </div>
         </section>
 
-        <section id='demo-cart'>
 
-          <div id="demo-cart-intro" class="step" data-x="47000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <h1>Cart</h1>
-          </div>
-
-          <div id="demo-cart-backbone-cart" class="step" data-x="47000" data-y="4000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <h1>Cart</h1>
-            <h2>Backbone</h2>
-            <pre>
-              <code>
-# app/assets/javascripts/app/collections/cart
-App.Collections.Cart = class Cart extends Backbone.Collection
-              </code>
-            </pre>
-          </div>
-
-          <div id="demo-cart-backbone-view" class="step" data-x="47000" data-y="7000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <h1>Cart</h1>
-            <h2>Backbone</h2>
-            <pre>
-              <code>
-# app/assets/javascripts/app/views/products/show/detail
-App.Views.Products.Show.Detail = class Detail extends Backbone.View
-
-events: 
-  "click button": "addToCart"
-
-initialize: ->
-  window.cart.on "add", @handleButtonState
-  
-addToCart: (e) =>
-  window.cart.add @model
-
-handleButtonState: =>
-  if window.cart.contains @model.id
-    @$("button").attr "disabled", "disabled"
-    @$("button").addClass "disabled"
-  else
-    @$("button").removeAttr "disabled"
-    @$("button").removeClass "disabled"
-              </code>
-            </pre>
-          </div>
+        
+        <!-- Routing -->
 
 
-          <div id="demo-cart-ember-template" class="step" data-x="47000" data-y="10000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <h1>Cart</h1>
-            <h2>Ember</h2>
-            <pre>
-              <code>
-&lt;div class='action'&gt;
-  &lt;button {{bindAttr class=&quot;inCart&quot;}} 
-          {{action &quot;addToCart&quot;}} 
-          {{bindAttr disabled=&quot;inCart&quot;}}&gt;
-       {{cartStatus}}
-  &lt;/button&gt;
-&lt;/div&gt;
-              </code>
-            </pre>
-          </div>
-
-          <div id="demo-cart-ember" class="step" data-x="47000" data-y="13000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <h1>Cart</h1>
-            <h2>Ember</h2>
-            <pre>
-              <code>
-# app/assets/javascripts/app/controllers/products
-App.ProductController = Ember.Object.extend
-  content: null
-
-  addToCart: ->
-    if @canAdd()
-      @cart.addObject(@get("content"))
-
-  canAdd: -> 
-    @get("content") and !@inCart
-
-  inCart: (-> @cart.contains(@get("content"))).property()
-              </code>
-            </pre>
-          </div>
-
-          <div id="demo-cart-ember-view" class="step" data-x="47000" data-y="16000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <h1>Cart</h1>
-            <h2>Ember</h2>
-            <pre>
-              <code>
-# app/assets/javascripts/app/views/products/detail
-App.DetailView = Ember.View.extend
-  contentBinding: "contentController.content"
-  inCartBinding: "contentController.inCart"
-
-  addToCart: (e) ->
-    @contentController.addToCart()
-    e.preventDefault()
-
-  cartStatus: (-> if @get("inCart") then "In Cart" else "Add To Cart").property("inCart")
-  ...
-              </code>
-            </pre>
-          </div>
-
-        </section>
 
         <section id='demo-routing'>
           <div id="demo-routing-intro" class="step" data-x="37000" data-y="-2000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
@@ -1790,7 +1409,7 @@ App.manager = Ember.StateManager.create
           </div>
 
         </section>
-
+<!-- 
         <section id='reloading-without-data'>
           <div id="demo-routing-what-if-isnt-loaded" class="step" data-x="41000" data-y="16000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h1>What if I need to show something</h1>
@@ -1835,27 +1454,488 @@ show: (params) =>
 
 
         </section>
+ -->
+      </section>
+
+
+
+      <!-- Cart -->
+
+
+
+      <section id='demo-cart'>
+
+        <div id="demo-cart-intro" class="step" data-x="47000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Cart</h1>
+        </div>
+
+        <div id="demo-cart-backbone-cart" class="step" data-x="47000" data-y="4000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Cart</h1>
+          <h2>Backbone</h2>
+          <pre>
+            <code>
+# app/assets/javascripts/app/collections/cart
+App.Collections.Cart = class Cart extends Backbone.Collection
+            </code>
+          </pre>
+        </div>
+
+        <div id="demo-cart-backbone-view" class="step" data-x="47000" data-y="7000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Cart</h1>
+          <h2>Backbone</h2>
+          <pre>
+            <code>
+# app/assets/javascripts/app/views/products/show/detail
+App.Views.Products.Show.Detail = class Detail extends Backbone.View
+
+events: 
+"click button": "addToCart"
+
+initialize: ->
+window.cart.on "add", @handleButtonState
+
+addToCart: (e) =>
+window.cart.add @model
+
+handleButtonState: =>
+if window.cart.contains @model.id
+  @$("button").attr "disabled", "disabled"
+  @$("button").addClass "disabled"
+else
+  @$("button").removeAttr "disabled"
+  @$("button").removeClass "disabled"
+            </code>
+          </pre>
+        </div>
+
+
+        <div id="demo-cart-ember-template" class="step" data-x="47000" data-y="10000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Cart</h1>
+          <h2>Ember</h2>
+          <pre>
+            <code>
+&lt;div class='action'&gt;
+&lt;button {{bindAttr class=&quot;inCart&quot;}} 
+        {{action &quot;addToCart&quot;}} 
+        {{bindAttr disabled=&quot;inCart&quot;}}&gt;
+     {{cartStatus}}
+&lt;/button&gt;
+&lt;/div&gt;
+            </code>
+          </pre>
+        </div>
+
+        <div id="demo-cart-ember" class="step" data-x="47000" data-y="13000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Cart</h1>
+          <h2>Ember</h2>
+          <pre>
+            <code>
+# app/assets/javascripts/app/controllers/products
+App.ProductController = Ember.Object.extend
+content: null
+
+addToCart: ->
+  if @canAdd()
+    @cart.addObject(@get("content"))
+
+canAdd: -> 
+  @get("content") and !@inCart
+
+inCart: (-> @cart.contains(@get("content"))).property()
+            </code>
+          </pre>
+        </div>
+
+        <div id="demo-cart-ember-view" class="step" data-x="47000" data-y="16000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Cart</h1>
+          <h2>Ember</h2>
+          <pre>
+            <code>
+# app/assets/javascripts/app/views/products/detail
+App.DetailView = Ember.View.extend
+contentBinding: "contentController.content"
+inCartBinding: "contentController.inCart"
+
+addToCart: (e) ->
+  @contentController.addToCart()
+  e.preventDefault()
+
+cartStatus: (-> if @get("inCart") then "In Cart" else "Add To Cart").property("inCart")
+...
+            </code>
+          </pre>
+        </div>
 
       </section>
 
+      <section id='magic-and-boilerplate'>
+        <div id="magic" class="step" data-x="47000" data-y="20000" data-z="5000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3"><h1>magic</h1></div>
+
+        <div id="boilerplate" class="step" data-x="47000" data-y="20000" data-z="5000" data-rotate-x="-90" data-rotate-y="0" data-rotate-z="0" data-scale="3"><h1>boilerplate</h1></div>
+
+        <div id="magic-convention" class="step" data-x="47000" data-y="20000" data-z="5000" data-rotate-x="0" data-rotate-y="90" data-rotate-z="0" data-scale="3"><h1>conventions</h1></div>
+
+        <div id="boilerplate-freedom" class="step" data-x="47000" data-y="20000" data-z="5000" data-rotate-x="90" data-rotate-y="90" data-rotate-z="0" data-scale="3"><h1>freedom</h1></div>
+      </section>
+
+
+
+      <!-- Models -->
+<!-- 
+
+      <section id="demo-models">
+        <section id='demo-models-backbone'>
+          <div id="demo-models-backbone-intro" class="step" data-x="34000" data-y="0" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Models &amp; Collections</h1>
+            <h2>Backbone</h2>
+          </div>
+
+          <div id="demo-models-backbone-product-model" class="step" data-x="34000" data-y="2000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Model</h1>
+            <pre>
+              <code>
+# app/assets/javascripts/app/models/product
+App.Models.Product = class Product extends Backbone.Model
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-models-duplicate-errrr" class="step" data-x="34000" data-y="5000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>errrrr..</h1>
+            <pre>
+              <code class='medium'>
+window.Patient = class Patient extends Spine.Model
+...                  
+@isValidSSN: (value, element) ->
+  re = /^([0-6]\d{2}|7[0-6]\d|77[0-2])([ \-]?)(\d{2})\2(\d{4})$/
+  temp = value.replace(/-|\s/g, "")
+  return false unless re.test(temp) 
+  return false if (temp.substring(0, 3) == "000") or (temp.substring(3, 5) == "00") or (temp.substring(5, 9) == "0000")
+  return true
+  
+@isValidBirthdate: (value, element) ->
+  date = Date.parseExact(value, ["M/d/yyyy", "M-d-yyyy"])
+  return false unless date
+  dateIsTodayOrEarlier = (Date.today().compareTo(date) >= 0)
+  return false unless dateIsTodayOrEarlier
+  return true
+
+validate: ->
+  ssn = @ssn_entry || @formatted_ssn || @ssn
+  birthdate = @birthdate_entry || @birthdate
+  errors = {}
+  ssn_errors = []
+  birthdate_errors = []
+
+  if @newRecord
+    ssn_errors.push("must be an SSN") unless ssn and @constructor.isValidSSN(ssn)
+    birthdate_errors.push("must be a valid date") unless birthdate and @constructor.isValidBirthdate(birthdate)
+
+  errors.ssn = ssn_errors if ssn_errors.length > 0
+  errors.birthdate = birthdate_errors if birthdate_errors.length > 0
+  if $.isEmptyObject(errors) then return null else return errors
+
+parseBirthdateEntry: ->
+  @birthdate = Date.parse(@birthdate_entry) if @birthdate_entry?
+
+parseSsnEntry: ->
+  if @ssn_entry?
+    @ssn = @ssn_entry.replace(/-/g, "")
+    @masked_ssn = "XXX-XX-" + @ssn_entry.slice(-4)
+    @formatted_ssn = @ssn.slice(0, 3) + "-" + @ssn.slice(3,5) + "-" + @ssn.slice(5,9)
+
+full_name: ->
+  [@first_name, @middle_name, @last_name].join(" ").replace(/\s{2}/g, " ")
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-models-duplicate-logic" class="step" data-x="34000" data-y="8000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>You'll end up duplicating</h1>
+            <ul>
+              <li>Validators</li>
+              <li>Virtual accessors</li>
+              <li>View-oriented helpers</li>
+              <li>Basically all of ActiveSupport</li>
+            </ul>
+          </div>
+
+          <div id="demo-models-backbone-persistence-adapter" class="step" data-x="34000" data-y="11000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Model Persistence</h1>
+            <h2>Backbone &amp; Spine REST</h2>
+            <ul class='api-doc'>
+              <li>
+                <dd>fetch()</dd>
+                <dt>GET /products/123</dt>
+              </li>
+              <li>
+                <dd>create()</dd>
+                <dt>POST /products</dt>
+              </li>
+              <li>
+                <dd>save()</dd>
+                <dt>POST /products</dt>
+                <dt>PUT  /products/123</dt>
+              </li>
+              <li>
+                <dd>destroy()</dd>
+                <dt>DELETE /products/123</dt>
+              </li>
+            </ul>
+          </div>
+          <div id="demo-collection-backbone-persistence" class="step" data-x="34000" data-y="14000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Collection Persistence</h1>
+            <h2>Backbone &amp; Spine REST</h2>
+            <ul class='api-doc'>
+              <li>
+                <dd>fetch()</dd>
+                <dt>GET /products</dt>
+              </li>
+            </ul>
+          </div>
+
+          <div id="demo-collection-backbone-persistence-ajax-options" class="step" data-x="34000" data-y="17000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Bacbone Custom AJAX</h1>
+            <h2>jQuery syntax</h2>
+            <pre>
+              <code>
+# app/assets/javascripts/app/collections/products
+App.Collections.Products = class Products extends Backbone.Collection
+url: "/products"
+
+nextPage: (options) =>
+  options = options or {}
+  options = $.extend {}, {add: true}, options
+  @fetch
+    data: 
+      page:     @next_page
+      per_page: @calculatePerPage()
+      category: @category
+    add: options.add
+
+parse: (data, xhr) ->
+  @handlePaging(xhr)
+  super data, xhr
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-collection-persistence-paging" class="step" data-x="34000" data-y="17000" data-z="1500" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Some conventions we break</h1>
+            <pre>
+              <code>
+config.include_json_root = false
+              </code>
+            </pre>
+            <pre>
+              <code>
+X-Pagination:page: 2, per_page: 20, next_page: 3, total_pages: 37
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-collection-spine-persistence-ajax-options" class="step" data-x="34000" data-y="20000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Spine Custom AJAX</h1>
+            <h2>jQuery syntax</h2>
+            <pre>
+              <code>
+# app/assets/javascripts/app/models/product
+App.Models.Product = class Product extends Spine.Model
+@configure "Product", "id", "name", "designer_name", "price", "image_url", "description", "category"
+@extend Spine.Model.Ajax
+
+...
+
+@nextPage: (callback) ->
+  @one "paginated", @handlePaging
+  @one "paginated", callback if typeof callback is "function"
+  Product.fetch 
+    data:
+      page:     Product.next_page
+      per_page: Product.calculatePerPage()
+      category: Product.category
+    processData: true
+    success: (data, status, xhr) =>
+      @trigger("paginated", data, status, xhr)
+
+              </code>
+            </pre>
+          </div>
+
+        </section>
+
+        <section id="demo-models-controllers-ember">
+          <div id="demo-models-controllers-ember-object" class="step" data-x="34000" data-y="23000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Ember Models</h1>
+            <pre>
+              <code>
+# app/assets/javascripts/app/models/product
+App.Product = Ember.Object.extend
+
+title: (-> 
+  @get("designer_name") + ": " + @get("name")
+  ).property("designer_name", "name")
+              </code>
+            </pre>
+            <h2>Are really just objects</h2>
+          </div>
+
+          <div id="demo-models-controllers-ember-controller-just-object" class="step" data-x="34000" data-y="27000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Ember Controllers</h1>
+            <pre>
+              <code>
+# app/assets/javascripts/app/controllers/item
+App.ProductController = Ember.Object.extend
+content: null
+
+addToCart: ->
+  if @canAdd()
+    @cart.addObject(@get("content"))
+
+canAdd: -> 
+  @get("content") and !@inCart
+
+inCart: Ember.computed(-> @cart.contains(@get("content"))).property("content")
+              </code>
+            </pre>
+            <pre>
+              <code>
+# app/assets/javascripts/app/index
+->
+@detailController = App.ProductController.create
+  content: null
+  cart: @cart
+              </code>
+            </pre>
+            <h2>Are also just objects</h2>
+          </div>
+
+          <div id="demo-models-controllers-ember-controller-ajax" class="step" data-x="34000" data-y="30000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>Ember Controllers</h1>
+            <pre>
+              <code>
+# app/assets/javascripts/app/controllers/items
+App.ItemsController = Ember.ArrayController.extend
+...
+getItems: ->
+  self = @
+  $.ajax
+    url: "/products"
+    type: "GET"
+    contentType: "application/json"
+    dataType: "json"
+    data: 
+      page: @.get("next_page")
+      per_page: @get("per_page")
+      category: @get("category")
+    success: (data, status, xhr) ->
+      self.setContent(data)
+      self.handlePaging(xhr)
+
+setContent: (data) ->
+  @addObject(App.Product.create(item)) for item in data
+
+....
+              </code>
+            </pre>
+            <h2>except for the special ones</h2>
+          </div>
+
+        </section>
+
+      </section>
+
+ -->
+      <!-- Grading -->
+
+      <section id="grading">
+        <div id="grading-intro" class="step" data-x="50000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>How'd we do?</h1>
+        </div>
+
+        <section id='grading-backbone'>
+          <div id="grading-backbone-structure" class="step" data-x="50000" data-y="3000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2 class='framework-name'>Backbone</h2>
+            <h1 class='question'>Can I build a big app?</h1>
+            <div class='answer'><p>sorta</p></div>
+            <ul><li>Lots of boilerplate</li><li>Structure is ad-hoc</li></ul>
+          </div>
+
+          <div id="grading-backbone-explain" class="step" data-x="50000" data-y="4000" data-z="3000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2 class='framework-name'>Backbone</h2>
+            <h1 class='question'>Can I explain it to someone else?</h1>
+            <div class='answer'><p>Yes</p></div>
+            <ul><li>Very simple</li><li>Large, helpful community</li></ul>
+          </div>
+
+          <div id="grading-backbone-spend-money" class="step" data-x="50000" data-y="5000" data-z="6000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2 class='framework-name'>Backbone</h2>
+            <h1 class='question'>Should I spend my client's money?</h1>
+            <div class='answer'><p>Probably</p></div>
+            <ul><li>No mysteries</li><li>Very large apps might get cumbersome</li></ul>
+          </div>
+        </section>
+
+
+        <section id='grading-spine'>
+          <div id="grading-spine-structure" class="step" data-x="56000" data-y="3000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2 class='framework-name'>Spine</h2>
+            <h1 class='question'>Can I build a big app?</h1>
+            <div class='answer'><p>Yes</p></div>
+            <ul><li>Stacks are a key building block</li><li>Structure is ad-hoc</li></ul>
+          </div>
+
+          <div id="grading-spine-explain" class="step" data-x="56000" data-y="4000" data-z="3000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2 class='framework-name'>Spine</h2>
+            <h1 class='question'>Can I explain it to someone else?</h1>
+            <div class='answer'><p>Yes</p></div>
+            <ul><li>Very simple</li><li>Large, helpful community</li></ul>
+          </div>
+
+          <div id="grading-spine-spend-money" class="step" data-x="56000" data-y="5000" data-z="6000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2 class='framework-name'>Spine</h2>
+            <h1 class='question'>Should I spend my client's money?</h1>
+            <div class='answer'><p>Probably</p></div>
+            <ul><li>No mysteries</li><li>Very large apps might get cumbersome</li></ul>
+          </div>
+        </section>
+
+
+
+
+
+      </section>
+
+
+      <!-- Outro -->
+
+
+
       <section id="outro">
 
-        <div id="outro-tape" class="step" data-x="60000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+        <div id="outro-tape" class="step" data-x="80000" data-y="1000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <img src="images/studer_a800.jpg" style="width: 600px;" />
         </div>
 
-        <div id="outro-console" class="step" data-x="60000" data-y="4000" data-z="15" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+        <div id="outro-console" class="step" data-x="80000" data-y="4000" data-z="15" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <img src="images/Skywalker_console.jpeg" style="width: 800px;" />
         </div>
 
-        <div id="outro-adat" class="step" data-x="60000" data-y="7000" data-z="-15" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+        <div id="outro-adat" class="step" data-x="80000" data-y="7000" data-z="-15" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <img src="images/38_adat_color.jpg" style="width: 800px;" />
         </div>
 
-        <div id="outro-pro-tools" class="step" data-x="60000" data-y="10000" data-z="15" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+        <div id="outro-pro-tools" class="step" data-x="80000" data-y="10000" data-z="15" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <img src="images/Pro Tools.png" style="width: 1000px;" />
         </div>
 
+      </section>
+
+      <section id="thanks">
+        <div id="thanks-title" class="step" data-x="40000" data-y="1000" data-z="10000" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h1>Thanks!</h1>
+          <h2>@scottburton</h2>
+        </div>
       </section>
 
     </div>
