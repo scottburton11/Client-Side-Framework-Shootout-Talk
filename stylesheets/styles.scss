@@ -87,6 +87,10 @@ pre {
   code.medium {
     font-size: 12px;
   }
+
+  h3.framework-name {
+    text-align: left;
+  }
 }
 
 .mono {
@@ -224,6 +228,11 @@ background: -ms-radial-gradient(center, ellipse cover,  rgba(237,100,75,1) 0%,rg
 background: radial-gradient(ellipse at center,  rgba(237,100,75,1) 0%,rgba(243,80,50,1) 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed644b', endColorstr='#f35032',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
 
+  color: #EEEEEE;
+}
+
+.actual_orange {
+  background-color: #FF5C00;
   color: #EEEEEE;
 }
 
