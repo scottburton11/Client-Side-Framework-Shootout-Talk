@@ -760,6 +760,15 @@ itemsInCart: (-> @get("content").length ).property()
 
         </section>
 
+        <section>
+
+          <div id="slides-here" class="step" data-x="24000" data-y="15000" data-z="5000" data-rotate-x="45" data-rotate-y="-35" data-rotate-z="0" data-scale="3">
+            <h1>Follow along:</h1>
+            <h2>github/scottburton11<br/>Client-Side-Framework-Shootout-Talk</h2>
+          </div>
+
+        </section>
+
         <section id="rendering-views">
           <div id="demo-rendering-views" class="step" data-x="27000" data-y="0" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h1>Rendering Views</h1>
@@ -933,7 +942,71 @@ itemsInCart: (-> @get("content").length ).property()
                   </code>
                 </pre>
               </div>
+
+              <div id="demo-collection-persistence-paging" class="step" data-x="30000" data-y="10000" data-z="2000" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+                <h1>Pagination headers</h1>
+                <pre>
+                  <code>
+    X-Pagination: page: 2, per_page: 20, next_page: 3, total_pages: 37
+                  </code>
+                </pre>
+              </div>
+
+              <div id="demo-collection-backbone-persistence-ajax-options" class="step" data-x="30000" data-y="10000" data-z="4000" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+                <h1>Paging</h1>
+                <pre>
+                  <h3 class='framework-name'>Backbone</h3>
+                  <code>
+# app/assets/javascripts/app/collections/products
+App.Collections.Products = class Products extends Backbone.Collection
+  url: "/products"
+
+  changeStore: (store) ->
+    @next_page = 1
+    @store = store
+    @nextPage(add: false)
+
+  nextPage: (options) =>
+    options = options or {}
+    options = $.extend {}, {add: true}, options
+    @fetch
+      data: 
+        page:     @next_page
+        per_page: @calculatePerPage()
+        category: @category
+      add: options.add
+...
+                  </code>
+                </pre>
+              </div>
+
+              <div id="demo-collection-backbone-persistence-parse-page-headers" class="step" data-x="30000" data-y="10000" data-z="6000" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+                <h1>Parsing</h1>
+                <pre>
+                  <h3 class='framework-name'>Backbone</h3>
+                  <code>
+# app/assets/javascripts/app/collections/products
+App.Collections.Products = class Products extends Backbone.Collection
+...
+parse: (data, xhr) ->
+  @handlePaging(xhr)
+  super data, xhr
+
+handlePaging: (xhr) ->
+  paginationHeader = xhr.getResponseHeader("X-Pagination")
+  for segment in paginationHeader.split(", ")
+    do (segment) =>
+      [key, value] = segment.split(": ")
+      @[key] = parseInt(value)
+
+                  </code>
+                </pre>
+              </div>
+
             </section>
+
+
+
           </section>
 
           <section id='rendering-views-ember'>
@@ -964,14 +1037,12 @@ itemsInCart: (-> @get("content").length ).property()
 
     &lt;script type=&quot;text/x-handlebars&quot; data-template-name=&quot;item&quot;&gt;
       &lt;article class='product item'&gt;
-        {{#with &quot;content&quot;}}
         &lt;div&gt;&lt;img {{bindAttr src=&quot;image_url&quot;}}/&gt;&lt;/div&gt;
         &lt;header&gt;
           &lt;h2&gt;{{designer_name}}&lt;/h2&gt;
           &lt;h1&gt;{{name}}&lt;/h1&gt;
           &lt;p class=&quot;price&quot;&gt;{{price}}&lt;/p&gt;
         &lt;/header&gt;
-        {{/with}}
       &lt;/article&gt;
     &lt;/script&gt;
 
@@ -1006,12 +1077,10 @@ itemsInCart: (-> @get("content").length ).property()
               &lt;button {{bindAttr class=&quot;inCart&quot;}} {{action &quot;addToCart&quot;}} {{bindAttr disabled=&quot;inCart&quot;}}&gt;{{cartStatus}}&lt;/button&gt;
             &lt;/div&gt;
             &lt;div class='description'&gt;
-              Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat. 
               &lt;ul&gt;
-                &lt;li&gt;Vel illum dolore eu feugiat nulla facilisis at vero eros.&lt;/li&gt;
-                &lt;li&gt;et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit.&lt;/li&gt;
-                &lt;li&gt;100% augue duis dolore te feugait nulla facilisi.&lt;/li&gt;
-                &lt;li&gt;Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.&lt;/li&gt;
+                {{#each "descriptionItems"}}
+                  &lt;li&gt;{{this}}&lt;/li&gt;
+                {{/each}}
               &lt;/ul&gt;
             &lt;/div&gt;
           &lt;/section&gt;
@@ -1033,14 +1102,12 @@ itemsInCart: (-> @get("content").length ).property()
                 <code>
     &lt;script type=&quot;text/x-handlebars&quot; data-template-name=&quot;item&quot;&gt;
       &lt;article class='product item'&gt;
-        {{#with &quot;content&quot;}}
         &lt;div&gt;&lt;img {{bindAttr src=&quot;image_url&quot;}}/&gt;&lt;/div&gt;
         &lt;header&gt;
           &lt;h2&gt;{{designer_name}}&lt;/h2&gt;
           &lt;h1&gt;{{name}}&lt;/h1&gt;
           &lt;p class=&quot;price&quot;&gt;{{price}}&lt;/p&gt;
         &lt;/header&gt;
-        {{/with}}
       &lt;/article&gt;
     &lt;/script&gt;
                 </code>
@@ -1415,6 +1482,26 @@ App.initialize(router);
             </pre>
           </div>
 
+          <div id="demo-routing-new-ember-app-serialize" class="step" data-x="37000" data-y="28000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2>URL Serialization</h2>
+            <pre>
+              <h3 class='framework-name'>Ember</h3>
+              <code>
+  serialize: function(router, context) {
+    return {
+      id: context.get("id");
+    }
+              </code>
+              <code>http://hostname/#/product/123</code>
+              <code>
+  deserialize: function(router, params) {
+    return {
+      product: Product.find(params.id)
+    }
+              </code>
+            </pre>
+          </div>
+
           <div id="demo-routing-backbone" class="step" data-x="37000" data-y="7000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h1>Routing</h1>
             <pre>
@@ -1633,28 +1720,7 @@ App.Views.Products.Show.Detail = class Detail extends Backbone.View
           </pre>
         </div>
 
-        <div id="demo-cart-ember" class="step" data-x="47000" data-y="13000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-          <h2>Cart</h2>
-          <pre>
-            <h3 class='framework-name'>Ember</h3>
-            <code>
-# app/assets/javascripts/app/controllers/products
-App.ProductController = Ember.Object.extend
-  content: null
-
-  addToCart: ->
-    if @canAdd()
-      @cart.addObject(@get("content"))
-
-  canAdd: -> 
-    @get("content") and !@inCart
-
-  inCart: (-> @cart.contains(@get("content"))).property()
-            </code>
-          </pre>
-        </div>
-
-        <div id="demo-cart-ember-view" class="step" data-x="47000" data-y="16000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+        <div id="demo-cart-ember-view" class="step" data-x="47000" data-y="13000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
           <h2>Cart</h2>
           <pre>
             <h3 class='framework-name'>Ember</h3>
@@ -1673,6 +1739,28 @@ App.DetailView = Ember.View.extend
             </code>
           </pre>
         </div>
+
+        <div id="demo-cart-ember" class="step" data-x="47000" data-y="16000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <h2>Cart</h2>
+          <pre>
+            <h3 class='framework-name'>Ember</h3>
+            <code>
+# app/assets/javascripts/app/controllers/products
+App.ProductController = Ember.Object.extend
+  content: null
+
+  addToCart: ->
+    if @canAdd()
+      @cart.addObject(@get("content"))
+
+  canAdd: -> 
+    @get("content") and !@inCart
+
+  inCart: (-> @cart.contains(@get("content"))).property("cart.content")
+            </code>
+          </pre>
+        </div>
+
 
       </section>
 
