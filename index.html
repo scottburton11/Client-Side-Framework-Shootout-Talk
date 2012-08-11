@@ -578,11 +578,21 @@ class ProductsController < ApplicationController
               <li>Simplifies common patterns</li>
               <li>Never block the UI</li>
               <li>Wants to manage your resources</li>
+              <li>Models *are* collections</li>
               <li>Prototypical</li>
               <li>Excellent docs</li>
               <li>Readable source</li>
             </ul>
           </div>
+
+          <div id="spine-duplicate-logic" class="step" data-x="12000" data-y="7000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h1>You'll end up duplicating</h1>
+            <ul>
+              <li>Validators</li>
+              <li>Virtual accessors</li>
+            </ul>
+          </div>
+
 
 <!--           <div id="spine-components-controller" class="step" data-x="12000" data-y="6000" data-z="0" data-rotate-x="-60" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <h1>Spine.js</h1>
@@ -1240,28 +1250,7 @@ $ ->
             <h1>App setup</h1>
           </div>
 
-          <div id="demo-app-main" class="step" data-x="43000" data-y="5000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
-            <pre>
-              <h3 class='framework-name'>Backbone</h3>
-              <code>
-# app/assets/javascripts/app/main
-App.MainView = class Main extends Backbone.View
-
-  initialize: ->
-    @products = new App.Views.Products.Section
-
-    @sections = [@products]
-
-
-  render: ->
-    @$el.append(section.render().el) for section in @sections
-    @
-
-              </code>
-            </pre>
-          </div>
-
-          <div id="demo-app-main-spine" class="step" data-x="43000" data-y="8000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+          <div id="demo-app-main-spine" class="step" data-x="43000" data-y="5000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <pre>
               <h3 class='framework-name'>Spine</h3>
               <code>
@@ -1270,9 +1259,9 @@ App.Main = class Main extends Spine.Controller
   constructor: ->
     super
 
-    @products = new App.Controllers.Products.Section(cart: @cart)
+    @products = new App.Controllers.Products.Section
 
-    @sections = [@products]
+    @sections = [@products, ...]
 
     @manager = new Spine.Manager(@sections...)
 
@@ -1283,6 +1272,42 @@ App.Main = class Main extends Spine.Controller
               </code>
             </pre>
           </div>
+
+          <div id="demo-app-main-backbone" class="step" data-x="43000" data-y="8000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <pre>
+              <h3 class='framework-name'>Backbone</h3>
+              <code>
+# app/assets/javascripts/app/main
+App.MainView = class Main extends Backbone.View
+
+  initialize: ->
+    @products = new App.Views.Products.Section
+
+    @sections = [@products, ..]
+
+
+  render: ->
+    @$el.append(section.render().el) for section in @sections
+    @
+
+              </code>
+            </pre>
+          </div>
+
+          <div id="demo-app-backbone-activate" class="step" data-x="43000" data-y="8000" data-z="2000" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0" data-scale="3">
+            <h2>#activate() pattern</h2>
+            <pre>
+              <h3 class='framework-name'>Backbone</h3>
+              <code>
+App.Views.Products.Section = class Products extends Backbone.View
+  ....
+  activate: (active_controller) ->
+    controller.deactivate() for controller in @controllers when controller isnt active_controller
+    active_controller.activate()
+              </code>
+            </pre> 
+          </div>
+
 
           <div id="demo-app-main-ember" class="step" data-x="43000" data-y="11000" data-z="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="3">
             <pre>
@@ -1727,8 +1752,8 @@ App.Views.Products.Show.Detail = class Detail extends Backbone.View
             <code>
 # app/assets/javascripts/app/views/products/detail
 App.DetailView = Ember.View.extend
-  contentBinding: "contentController.content"
-  inCartBinding: "contentController.inCart"
+  contentBinding: "productController.content"
+  inCartBinding: "productController.inCart"
 
   addToCart: (e) ->
     @contentController.addToCart()
