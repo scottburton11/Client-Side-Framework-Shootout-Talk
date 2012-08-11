@@ -108,6 +108,8 @@ pre code.small {
   font-size: 10px; }
 pre code.medium {
   font-size: 12px; }
+pre code.error-message {
+  font-size: 17px; }
 pre h3.framework-name {
   text-align: left; }
 
